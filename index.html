@@ -2,850 +2,847 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Shivam Deals</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shivam Deals - Online Shopping</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-    background:#f3f4f6;
-    color:#111827;
+ font-family:Arial,sans-serif;
+ background:#eaeded;
+ color:#111;
 }
-
-/* HEADER */
 header{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:35px 15px;
+ background:#131921;
+ color:white;
+ position:sticky;
+ top:0;
+ z-index:100;
 }
-
+.top{
+ display:flex;
+ align-items:center;
+ gap:15px;
+ padding:10px 15px;
+}
 .logo{
-    font-size:42px;
-    font-weight:bold;
-    margin-bottom:25px;
+ color:#ff9900;
+ font-size:25px;
+ font-weight:bold;
+ white-space:nowrap;
 }
-
 .search{
-    width:92%;
-    max-width:600px;
-    padding:17px;
-    border:none;
-    border-radius:14px;
-    font-size:18px;
+ flex:1;
+ display:flex;
+ height:42px;
+}
+.search select{
+ width:60px;
+ border:0;
+ background:#eee;
+}
+.search input{
+ flex:1;
+ border:0;
+ padding:10px;
+ font-size:16px;
+ outline:none;
+}
+.search button{
+ width:55px;
+ border:0;
+ background:#febd69;
+ font-size:20px;
+ cursor:pointer;
+}
+.account{
+ font-size:12px;
+ white-space:nowrap;
+}
+.account b{display:block;font-size:14px}
+.cart{
+ font-size:26px;
+ cursor:pointer;
+}
+.menu{
+ background:#232f3e;
+ display:flex;
+ gap:25px;
+ padding:11px 15px;
+ overflow:auto;
+ white-space:nowrap;
+}
+.menu span{cursor:pointer}
+
+/* HERO */
+.hero{
+ height:330px;
+ background:
+ linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.1)),
+ url("https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1600&q=80");
+ background-size:cover;
+ background-position:center;
+ color:white;
+ padding:60px 30px;
+}
+.hero h1{font-size:42px;margin-bottom:12px}
+.hero p{font-size:20px;margin-bottom:20px}
+.hero button{
+ background:#ff9900;
+ border:0;
+ padding:12px 25px;
+ border-radius:4px;
+ font-weight:bold;
+ cursor:pointer;
 }
 
-/* CATEGORY BUTTONS */
-.categories{
-    background:white;
-    padding:22px 10px;
-    text-align:center;
+/* MAIN */
+.container{
+ max-width:1450px;
+ margin:auto;
+ padding:15px;
 }
-
-.categories button{
-    border:none;
-    padding:14px 22px;
-    margin:5px;
-    border-radius:12px;
-    background:#e5e7eb;
-    font-size:16px;
-    cursor:pointer;
+.section{
+ background:white;
+ padding:18px;
+ margin-bottom:18px;
+ border-radius:5px;
 }
-
-.categories button.active{
-    background:#111827;
-    color:white;
-}
-
-/* ADMIN */
-.admin-box{
-    width:94%;
-    max-width:650px;
-    margin:30px auto;
-    padding:28px;
-    background:white;
-    border-radius:20px;
-    box-shadow:0 4px 15px #0001;
-}
-
-.admin-title{
-    text-align:center;
-    font-size:30px;
-    font-weight:bold;
-    margin-bottom:20px;
-}
-
-.input{
-    width:100%;
-    padding:14px;
-    margin:7px 0;
-    border:1px solid #ccc;
-    border-radius:10px;
-    font-size:16px;
-}
-
-.btn{
-    border:none;
-    border-radius:9px;
-    padding:13px 18px;
-    background:#111827;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    margin-top:8px;
-}
-
-.logout{
-    background:#dc2626;
-}
-
-#adminPanel{
-    display:none;
-}
-
-.message{
-    text-align:center;
-    margin-top:12px;
-    font-weight:bold;
-}
-
-/* PRODUCT AREA */
-.products-section{
-    width:94%;
-    max-width:1200px;
-    margin:35px auto;
-}
-
 .section-title{
-    font-size:32px;
-    margin:30px 0 18px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:15px;
 }
+.section-title h2{font-size:22px}
 
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+/* CATEGORY */
+.categories{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px;
 }
+.category{
+ padding:12px;
+ border:1px solid #ddd;
+ cursor:pointer;
+}
+.category img{
+ width:100%;
+ height:190px;
+ object-fit:cover;
+}
+.category h3{margin-top:10px}
 
+/* PRODUCTS */
+.products{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:15px;
+}
 .product{
-    background:white;
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 4px 15px #0001;
-    padding-bottom:15px;
+ border:1px solid #ddd;
+ padding:12px;
+ background:white;
+ position:relative;
+ transition:.2s;
 }
-
+.product:hover{
+ box-shadow:0 3px 12px #bbb;
+ transform:translateY(-2px);
+}
 .product img{
-    width:100%;
-    height:220px;
-    object-fit:contain;
-    background:white;
+ width:100%;
+ height:190px;
+ object-fit:contain;
 }
-
-.product-info{
-    padding:15px;
+.heart{
+ position:absolute;
+ right:10px;
+ top:8px;
+ font-size:24px;
+ cursor:pointer;
 }
-
-.product-name{
-    font-size:19px;
-    font-weight:bold;
-    margin-bottom:10px;
+.product h3{
+ font-size:15px;
+ height:38px;
+ overflow:hidden;
+ margin:8px 0;
 }
-
+.rating{color:#e47911;font-size:14px}
 .price{
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:12px;
+ font-size:20px;
+ font-weight:bold;
+ margin-top:5px;
 }
-
+.old{
+ color:#777;
+ text-decoration:line-through;
+ font-size:13px;
+}
+.discount{
+ color:#b12704;
+ font-size:13px;
+ margin:4px 0 10px;
+}
 .buy{
-    display:block;
-    text-align:center;
-    text-decoration:none;
-    background:#ff9900;
-    color:#111;
-    padding:13px;
-    border-radius:8px;
-    font-weight:bold;
-    margin-bottom:8px;
+ display:block;
+ text-align:center;
+ background:#ff9900;
+ color:#111;
+ text-decoration:none;
+ padding:10px;
+ border-radius:4px;
+ font-weight:bold;
+ cursor:pointer;
 }
+.buy:hover{background:#ffb347}
 
-.delete{
-    width:100%;
-    background:#dc2626;
+/* CART */
+.cart-panel{
+ display:none;
+ position:fixed;
+ right:0;
+ top:0;
+ width:350px;
+ height:100%;
+ background:white;
+ z-index:200;
+ box-shadow:-3px 0 10px #777;
+ padding:20px;
+ overflow:auto;
 }
-
-.empty{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    color:#666;
+.cart-panel h2{margin-bottom:20px}
+.close{
+ float:right;
+ cursor:pointer;
+ font-size:25px;
+}
+.cart-item{
+ border-bottom:1px solid #ddd;
+ padding:12px 0;
+}
+.cart-total{
+ margin-top:20px;
+ font-size:20px;
+ font-weight:bold;
 }
 
 /* FOOTER */
+.back{
+ background:#37475a;
+ color:white;
+ text-align:center;
+ padding:15px;
+ cursor:pointer;
+}
 footer{
-    margin-top:60px;
-    padding:40px 15px;
-    background:#111827;
-    color:white;
-    text-align:center;
-    font-size:18px;
+ background:#232f3e;
+ color:white;
+ padding:40px 8%;
+}
+.footer-grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:30px;
+}
+footer h3{margin-bottom:12px}
+footer p{
+ color:#ddd;
+ margin:8px 0;
+ font-size:14px;
+}
+.copy{
+ border-top:1px solid #555;
+ margin-top:25px;
+ padding-top:20px;
+ text-align:center;
 }
 
 /* MOBILE */
+@media(max-width:900px){
+ .top{flex-wrap:wrap}
+ .account{display:none}
+ .search{
+  flex-basis:100%;
+  order:2;
+ }
+ .categories{
+  grid-template-columns:1fr 1fr;
+ }
+ .products{
+  grid-template-columns:repeat(3,1fr);
+ }
+}
 @media(max-width:600px){
-
-    .logo{
-        font-size:34px;
-    }
-
-    .admin-title{
-        font-size:26px;
-    }
-
-    .section-title{
-        font-size:27px;
-    }
-
-    .product img{
-        height:200px;
-    }
+ .logo{font-size:20px}
+ .hero{height:250px;padding:40px 20px}
+ .hero h1{font-size:28px}
+ .hero p{font-size:16px}
+ .products{
+  grid-template-columns:1fr 1fr;
+ }
+ .product img{height:145px}
+ .product h3{font-size:13px}
+ .cart-panel{width:100%}
+ .footer-grid{
+  grid-template-columns:1fr 1fr;
+ }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
 
-    <div class="logo">
-        🛒 Shivam Deals
-    </div>
+<div class="top">
 
-    <input
-        id="search"
-        class="search"
-        type="text"
-        placeholder="Product search kare..."
-        oninput="showProducts()"
-    >
+<div class="logo">Shivam Deals</div>
+
+<div class="search">
+<select id="categorySelect">
+<option value="all">All</option>
+<option value="mobile">Mobiles</option>
+<option value="electronics">Electronics</option>
+<option value="fashion">Fashion</option>
+<option value="home">Home</option>
+</select>
+
+<input id="searchBox"
+placeholder="Search products">
+
+<button onclick="searchProducts()">🔍</button>
+</div>
+
+<div class="account">
+Hello, Shivam
+<b>Account & Orders</b>
+</div>
+
+<div class="cart" onclick="openCart()">
+🛒 <span id="cartCount">0</span>
+</div>
+
+</div>
+
+<div class="menu">
+<span onclick="showAll()">☰ All</span>
+<span onclick="filterCategory('mobile')">Mobiles</span>
+<span onclick="filterCategory('electronics')">Electronics</span>
+<span onclick="filterCategory('fashion')">Fashion</span>
+<span onclick="filterCategory('home')">Home</span>
+<span onclick="showDeals()">🔥 Today's Deals</span>
+</div>
 
 </header>
 
 
-<!-- CATEGORY BUTTONS -->
+<section class="hero">
+
+<h1>Welcome to Shivam Deals</h1>
+
+<p>Best Deals • Smart Shopping • Great Offers</p>
+
+<button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+Shop Now
+</button>
+
+</section>
+
+
+<div class="container">
+
+<section class="section">
+
+<div class="section-title">
+<h2>Shop by Category</h2>
+</div>
+
 <div class="categories">
 
-    <button
-        class="active"
-        onclick="selectCategory('All',this)">
-        All Products
-    </button>
+<div class="category" onclick="filterCategory('mobile')">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80">
+<h3>📱 Mobiles</h3>
+</div>
 
-    <button
-        onclick="selectCategory('Mobile',this)">
-        Mobile
-    </button>
+<div class="category" onclick="filterCategory('electronics')">
+<img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80">
+<h3>💻 Electronics</h3>
+</div>
 
-    <button
-        onclick="selectCategory('Electronics',this)">
-        Electronics
-    </button>
+<div class="category" onclick="filterCategory('fashion')">
+<img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80">
+<h3>👕 Fashion</h3>
+</div>
 
-    <button
-        onclick="selectCategory('Fashion',this)">
-        Fashion
-    </button>
+<div class="category" onclick="filterCategory('home')">
+<img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80">
+<h3>🏠 Home</h3>
+</div>
 
-    <button
-        onclick="selectCategory('Home & Kitchen',this)">
-        Home & Kitchen
-    </button>
+</div>
+
+</section>
+
+
+<section class="section" id="products">
+
+<div class="section-title">
+<h2 id="productTitle">Today's Best Deals</h2>
+<span id="resultCount"></span>
+</div>
+
+<div class="products" id="productList"></div>
+
+</section>
 
 </div>
 
 
-<!-- ADMIN LOGIN -->
-<div class="admin-box">
-
-    <div class="admin-title">
-        🔐 Admin Login
-    </div>
-
-    <!-- LOGIN -->
-    <div id="loginArea">
-
-        <input
-            id="password"
-            class="input"
-            type="password"
-            placeholder="Password daalo"
-        >
-
-        <button
-            class="btn"
-            onclick="login()">
-            Login
-        </button>
-
-        <div
-            id="loginMessage"
-            class="message">
-        </div>
-
-    </div>
-
-
-    <!-- ADMIN PANEL -->
-    <div id="adminPanel">
-
-        <h2>➕ Product Add Kare</h2>
-
-        <input
-            id="productName"
-            class="input"
-            placeholder="Product name"
-        >
-
-        <input
-            id="productPrice"
-            class="input"
-            type="number"
-            placeholder="Price ₹"
-        >
-
-        <input
-            id="productImage"
-            class="input"
-            placeholder="Product photo URL"
-        >
-
-        <input
-            id="productLink"
-            class="input"
-            placeholder="Amazon Buy Link"
-        >
-
-        <!-- CATEGORY -->
-        <select
-            id="productCategory"
-            class="input">
-
-            <option value="Mobile">
-                Mobile
-            </option>
-
-            <option value="Electronics">
-                Electronics
-            </option>
-
-            <option value="Fashion">
-                Fashion
-            </option>
-
-            <option value="Home & Kitchen">
-                Home & Kitchen
-            </option>
-
-        </select>
-
-        <button
-            class="btn"
-            onclick="addProduct()">
-            ➕ Product Add Kare
-        </button>
-
-        <button
-            class="btn logout"
-            onclick="logout()">
-            Logout
-        </button>
-
-        <div
-            id="adminMessage"
-            class="message">
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- PRODUCTS -->
-<div
-    id="productsArea"
-    class="products-section">
+<div class="back" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+Back to top
 </div>
 
 
 <footer>
-    © 2026 Shivam Deals
+
+<div class="footer-grid">
+
+<div>
+<h3>Shivam Deals</h3>
+<p>About Us</p>
+<p>Contact Us</p>
+</div>
+
+<div>
+<h3>Shop</h3>
+<p>Mobiles</p>
+<p>Electronics</p>
+<p>Fashion</p>
+</div>
+
+<div>
+<h3>Information</h3>
+<p>Privacy Policy</p>
+<p>Terms & Conditions</p>
+</div>
+
+<div>
+<h3>Help</h3>
+<p>Customer Support</p>
+<p>Returns</p>
+</div>
+
+</div>
+
+<div class="copy">
+© 2026 Shivam Deals
+</div>
+
 </footer>
+
+
+<!-- CART PANEL -->
+
+<div class="cart-panel" id="cartPanel">
+
+<span class="close" onclick="closeCart()">×</span>
+
+<h2>🛒 Your Cart</h2>
+
+<div id="cartItems">
+Cart खाली है।
+</div>
+
+<div class="cart-total">
+Total: ₹<span id="cartTotal">0</span>
+</div>
+
+</div>
 
 
 <script>
 
-/* ADMIN PASSWORD */
+/*
+====================================
+PRODUCT DATA
+====================================
 
-const ADMIN_PASSWORD = "1234";
+अभी demo products हैं।
 
+Amazon पर अपने affiliate links लगाने के लिए
+नीचे amazonLink बदलें।
 
-/* CURRENT CATEGORY */
+बाद में इसी जगह Amazon Creators API
+से products load किए जा सकते हैं।
+*/
 
-let currentCategory = "All";
+const products = [
 
+{
+ id:1,
+ category:"mobile",
+ name:"5G Smartphone",
+ price:14999,
+ old:19999,
+ discount:"25% off",
+ rating:"★★★★☆",
+ image:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-1"
+},
 
-/* PRODUCTS */
+{
+ id:2,
+ category:"electronics",
+ name:"Wireless Bluetooth Earbuds",
+ price:999,
+ old:1999,
+ discount:"50% off",
+ rating:"★★★★★",
+ image:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-2"
+},
 
-let products =
-JSON.parse(
-    localStorage.getItem("shivamDealsProducts")
-) || [];
+{
+ id:3,
+ category:"fashion",
+ name:"Men Premium T-Shirt",
+ price:499,
+ old:999,
+ discount:"50% off",
+ rating:"★★★★☆",
+ image:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-3"
+},
 
+{
+ id:4,
+ category:"fashion",
+ name:"Running Shoes",
+ price:899,
+ old:1799,
+ discount:"50% off",
+ rating:"★★★★☆",
+ image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-4"
+},
 
-/* LOGIN */
+{
+ id:5,
+ category:"home",
+ name:"Modern Sofa",
+ price:8999,
+ old:14999,
+ discount:"40% off",
+ rating:"★★★★☆",
+ image:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-5"
+},
 
-function login(){
+{
+ id:6,
+ category:"electronics",
+ name:"Smart LED TV",
+ price:22999,
+ old:34999,
+ discount:"34% off",
+ rating:"★★★★☆",
+ image:"https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-6"
+},
 
-    let password =
-        document.getElementById("password").value;
+{
+ id:7,
+ category:"mobile",
+ name:"Premium Android Phone",
+ price:18999,
+ old:24999,
+ discount:"24% off",
+ rating:"★★★★★",
+ image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-7"
+},
 
-    let message =
-        document.getElementById("loginMessage");
-
-    if(password === ADMIN_PASSWORD){
-
-        document.getElementById("loginArea")
-        .style.display = "none";
-
-        document.getElementById("adminPanel")
-        .style.display = "block";
-
-        message.innerHTML = "";
-
-    }else{
-
-        message.innerHTML =
-            "❌ Password galat hai";
-
-        message.style.color = "red";
-    }
+{
+ id:8,
+ category:"electronics",
+ name:"Laptop Computer",
+ price:44999,
+ old:54999,
+ discount:"18% off",
+ rating:"★★★★☆",
+ image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80",
+ amazonLink:"YOUR-AMAZON-AFFILIATE-LINK-8"
 }
 
+];
 
-/* LOGOUT */
 
-function logout(){
+let currentProducts = [...products];
 
-    document.getElementById("loginArea")
-    .style.display = "block";
+let cart = [];
 
-    document.getElementById("adminPanel")
-    .style.display = "none";
 
-    document.getElementById("password").value = "";
-}
+/* DISPLAY PRODUCTS */
 
+function displayProducts(list){
 
-/* CATEGORY SELECT */
+ const box=document.getElementById("productList");
 
-function selectCategory(category,button){
+ box.innerHTML="";
 
-    currentCategory = category;
+ document.getElementById("resultCount").innerText =
+ list.length+" products";
 
-    document
-    .querySelectorAll(".categories button")
-    .forEach(btn => {
+ if(list.length===0){
 
-        btn.classList.remove("active");
+  box.innerHTML=
+  "<p>कोई product नहीं मिला।</p>";
 
-    });
+  return;
+ }
 
-    button.classList.add("active");
+ list.forEach(p=>{
 
-    showProducts();
-}
+  box.innerHTML += `
 
+  <div class="product">
 
-/* ADD PRODUCT */
-
-function addProduct(){
-
-    let name =
-        document.getElementById("productName")
-        .value.trim();
-
-    let price =
-        document.getElementById("productPrice")
-        .value.trim();
-
-    let image =
-        document.getElementById("productImage")
-        .value.trim();
-
-    let link =
-        document.getElementById("productLink")
-        .value.trim();
-
-    let category =
-        document.getElementById("productCategory")
-        .value;
-
-    let message =
-        document.getElementById("adminMessage");
-
-
-    if(
-        !name ||
-        !price ||
-        !image ||
-        !link
-    ){
-
-        message.innerHTML =
-            "❌ Sabhi details bhariye";
-
-        message.style.color = "red";
-
-        return;
-    }
-
-
-    /* NEW PRODUCT */
-
-    let product = {
-
-        id: Date.now(),
-
-        name: name,
-
-        price: price,
-
-        image: image,
-
-        link: link,
-
-        category: category
-
-    };
-
-
-    /* PRODUCT ADD */
-
-    products.unshift(product);
-
-
-    /* SAVE */
-
-    localStorage.setItem(
-        "shivamDealsProducts",
-        JSON.stringify(products)
-    );
-
-
-    /* CLEAR */
-
-    document.getElementById("productName").value = "";
-    document.getElementById("productPrice").value = "";
-    document.getElementById("productImage").value = "";
-    document.getElementById("productLink").value = "";
-
-
-    message.innerHTML =
-        "✅ Product add ho gaya";
-
-    message.style.color = "green";
-
-
-    showProducts();
-}
-
-
-/* DELETE PRODUCT */
-
-function deleteProduct(id){
-
-    if(
-        !confirm(
-            "Kya aap ye product delete karna chahte hain?"
-        )
-    ){
-
-        return;
-    }
-
-
-    products =
-        products.filter(
-            product => product.id !== id
-        );
-
-
-    localStorage.setItem(
-        "shivamDealsProducts",
-        JSON.stringify(products)
-    );
-
-
-    showProducts();
-}
-
-
-/* SHOW ONE PRODUCT */
-
-function productHTML(product){
-
-    return `
-
-    <div class="product">
-
-        <img
-            src="${product.image}"
-            alt="${product.name}"
-            onerror="
-            this.src=
-            'https://via.placeholder.com/500x500?text=No+Image'
-            "
-        >
-
-        <div class="product-info">
-
-            <div class="product-name">
-                ${product.name}
-            </div>
-
-            <div class="price">
-                ₹${product.price}
-            </div>
-
-            <a
-                class="buy"
-                href="${product.link}"
-                target="_blank"
-                rel="noopener">
-                🛒 Buy Now
-            </a>
-
-            <button
-                class="btn delete"
-                onclick="
-                deleteProduct(${product.id})
-                ">
-                🗑️ Delete
-            </button>
-
-        </div>
-
+    <div class="heart"
+    onclick="addWishlist(${p.id})">
+    ♡
     </div>
 
-    `;
+    <img src="${p.image}" alt="${p.name}">
+
+    <h3>${p.name}</h3>
+
+    <div class="rating">${p.rating}</div>
+
+    <div class="price">
+      ₹${p.price.toLocaleString("en-IN")}
+    </div>
+
+    <div class="old">
+      ₹${p.old.toLocaleString("en-IN")}
+    </div>
+
+    <div class="discount">
+      ${p.discount}
+    </div>
+
+    <button
+    class="buy"
+    onclick="buyAmazon('${p.amazonLink}')">
+    Amazon पर खरीदें
+    </button>
+
+    <br>
+
+    <button
+    class="buy"
+    onclick="addCart(${p.id})">
+    🛒 Cart में डालें
+    </button>
+
+  </div>
+
+  `;
+
+ });
+
 }
 
 
-/* SHOW PRODUCTS */
+/* AMAZON */
 
-function showProducts(){
+function buyAmazon(link){
 
-    let area =
-        document.getElementById("productsArea");
+ if(link.startsWith("YOUR-AMAZON")){
 
-    let search =
-        document.getElementById("search")
-        .value
-        .toLowerCase();
+  alert(
+   "इस product में अभी Amazon Affiliate Link नहीं लगाया गया है।"
+  );
 
+  return;
+ }
 
-    /* ALL PRODUCTS */
+ window.open(link,"_blank");
 
-    if(currentCategory === "All"){
+}
 
-        let filtered =
-            products.filter(product =>
 
-                product.name
-                .toLowerCase()
-                .includes(search)
+/* SEARCH */
 
-            );
+function searchProducts(){
 
+ const text=
+ document.getElementById("searchBox")
+ .value
+ .toLowerCase()
+ .trim();
 
-        let html = `
+ currentProducts=
+ products.filter(p=>
+ p.name.toLowerCase().includes(text)
+ );
 
-        <h1 class="section-title">
-            🛍️ All Products
-        </h1>
+ document.getElementById("productTitle").innerText=
+ text ? "Search Results" : "Today's Best Deals";
 
-        <div class="product-grid">
-        `;
+ displayProducts(currentProducts);
 
+}
 
-        if(filtered.length === 0){
 
-            html += `
-                <div class="empty">
-                    अभी कोई Product नहीं है
-                </div>
-            `;
+/* CATEGORY */
 
-        }else{
+function filterCategory(category){
 
-            filtered.forEach(product => {
+ currentProducts=
+ products.filter(p=>p.category===category);
 
-                html += productHTML(product);
+ document.getElementById("productTitle").innerText=
+ category.toUpperCase()+" Deals";
 
-            });
+ displayProducts(currentProducts);
 
-        }
+ document.getElementById("products")
+ .scrollIntoView({behavior:"smooth"});
 
+}
 
-        html += `
-        </div>
-        `;
 
+function showAll(){
 
-        /* CATEGORY SECTIONS */
+ currentProducts=[...products];
 
-        let categories = [
-            "Mobile",
-            "Electronics",
-            "Fashion",
-            "Home & Kitchen"
-        ];
+ document.getElementById("productTitle").innerText=
+ "Today's Best Deals";
 
+ displayProducts(currentProducts);
 
-        categories.forEach(category => {
+}
 
-            let categoryProducts =
-                products.filter(product =>
 
-                    product.category === category &&
-                    product.name
-                    .toLowerCase()
-                    .includes(search)
+function showDeals(){
 
-                );
+ currentProducts=
+ products.filter(p=>p.discount);
 
+ document.getElementById("productTitle").innerText=
+ "🔥 Today's Deals";
 
-            if(categoryProducts.length > 0){
+ displayProducts(currentProducts);
 
-                html += `
+ document.getElementById("products")
+ .scrollIntoView({behavior:"smooth"});
 
-                <h1 class="section-title">
-                    ${
-                        category === "Mobile"
-                        ? "📱"
-                        : category === "Electronics"
-                        ? "🎧"
-                        : category === "Fashion"
-                        ? "👕"
-                        : "🏠"
-                    }
+}
 
-                    ${category}
-                </h1>
 
-                <div class="product-grid">
-                `;
+/* CART */
 
+function addCart(id){
 
-                categoryProducts.forEach(product => {
+ const product=
+ products.find(p=>p.id===id);
 
-                    html += productHTML(product);
+ cart.push(product);
 
-                });
+ document.getElementById("cartCount")
+ .innerText=cart.length;
 
+ alert(product.name+" cart में डाल दिया गया।");
 
-                html += `
-                </div>
-                `;
+}
 
-            }
 
-        });
+function openCart(){
 
+ const panel=
+ document.getElementById("cartPanel");
 
-        area.innerHTML = html;
+ panel.style.display="block";
 
-        return;
-    }
+ const box=
+ document.getElementById("cartItems");
 
+ if(cart.length===0){
 
-    /* SPECIFIC CATEGORY */
+  box.innerHTML="Cart खाली है।";
 
-    let filtered =
-        products.filter(product =>
+  return;
+ }
 
-            product.category === currentCategory &&
+ let total=0;
 
-            product.name
-            .toLowerCase()
-            .includes(search)
+ box.innerHTML="";
 
-        );
+ cart.forEach((p,index)=>{
 
+  total+=p.price;
 
-    let icon =
-        currentCategory === "Mobile"
-        ? "📱"
-        : currentCategory === "Electronics"
-        ? "🎧"
-        : currentCategory === "Fashion"
-        ? "👕"
-        : "🏠";
+  box.innerHTML+=`
 
+   <div class="cart-item">
 
-    let html = `
+    <b>${p.name}</b>
 
-    <h1 class="section-title">
-        ${icon} ${currentCategory}
-    </h1>
+    <p>₹${p.price.toLocaleString("en-IN")}</p>
 
-    <div class="product-grid">
-    `;
+    <button
+    onclick="removeCart(${index})">
+    Remove
+    </button>
 
+   </div>
 
-    if(filtered.length === 0){
+  `;
 
-        html += `
-            <div class="empty">
-                इस Category में अभी कोई Product नहीं है
-            </div>
-        `;
+ });
 
-    }else{
+ document.getElementById("cartTotal")
+ .innerText=total.toLocaleString("en-IN");
 
-        filtered.forEach(product => {
+}
 
-            html += productHTML(product);
 
-        });
+function removeCart(index){
 
-    }
+ cart.splice(index,1);
 
+ document.getElementById("cartCount")
+ .innerText=cart.length;
 
-    html += `
-    </div>
-    `;
+ openCart();
 
+}
 
-    area.innerHTML = html;
+
+function closeCart(){
+
+ document.getElementById("cartPanel")
+ .style.display="none";
+
+}
+
+
+/* WISHLIST */
+
+function addWishlist(id){
+
+ alert("❤️ Product wishlist में जोड़ दिया गया।");
+
 }
 
 
 /* START */
 
-showProducts();
+displayProducts(products);
 
 </script>
 
 </body>
-  </html>
+    </html>
