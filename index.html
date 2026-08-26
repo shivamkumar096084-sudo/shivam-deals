@@ -3,787 +3,1664 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Shivam Deals - Online Shopping</title>
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body{
- font-family:Arial,sans-serif;
- background:#eaeded;
- color:#111;
+  font-family:Arial,sans-serif;
+  background:#eaeded;
+  color:#111;
 }
+
+/* ================= HEADER ================= */
+
 header{
- background:#131921;
- color:white;
- position:sticky;
- top:0;
- z-index:100;
+  background:#131921;
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
+
 .top{
- display:flex;
- align-items:center;
- gap:15px;
- padding:10px 15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:10px 15px;
 }
+
 .logo{
- color:#ff9900;
- font-size:25px;
- font-weight:bold;
- white-space:nowrap;
+  color:#ff9900;
+  font-size:25px;
+  font-weight:bold;
+  white-space:nowrap;
 }
+
 .search{
- flex:1;
- display:flex;
- height:42px;
+  flex:1;
+  display:flex;
+  height:42px;
 }
+
 .search select{
- width:60px;
- border:0;
- background:#eee;
+  width:70px;
+  border:0;
+  background:#eee;
 }
+
 .search input{
- flex:1;
- border:0;
- padding:10px;
- font-size:16px;
- outline:none;
+  flex:1;
+  border:0;
+  padding:10px;
+  font-size:16px;
+  outline:none;
 }
+
 .search button{
- width:55px;
- border:0;
- background:#febd69;
- font-size:20px;
- cursor:pointer;
+  width:55px;
+  border:0;
+  background:#febd69;
+  font-size:20px;
+  cursor:pointer;
 }
+
 .account{
- font-size:12px;
- white-space:nowrap;
+  font-size:12px;
+  white-space:nowrap;
 }
-.account b{display:block;font-size:14px}
+
+.account b{
+  display:block;
+  font-size:14px;
+}
+
 .cart{
- font-size:26px;
- cursor:pointer;
+  font-size:26px;
+  cursor:pointer;
+  white-space:nowrap;
 }
+
 .menu{
- background:#232f3e;
- display:flex;
- gap:25px;
- padding:11px 15px;
- overflow:auto;
- white-space:nowrap;
+  background:#232f3e;
+  display:flex;
+  gap:25px;
+  padding:11px 15px;
+  overflow:auto;
+  white-space:nowrap;
 }
-.menu span{cursor:pointer}
 
-/* HERO */
+.menu span{
+  cursor:pointer;
+}
+
+/* ================= HERO ================= */
+
 .hero{
- height:330px;
- background:
- linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.1)),
- url("https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1600&q=80");
- background-size:cover;
- background-position:center;
- color:white;
- padding:60px 30px;
+  height:330px;
+
+  background:
+  linear-gradient(
+    90deg,
+    rgba(0,0,0,.65),
+    rgba(0,0,0,.10)
+  ),
+  url("https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1600&q=80");
+
+  background-size:cover;
+  background-position:center;
+
+  color:white;
+
+  padding:60px 30px;
 }
-.hero h1{font-size:42px;margin-bottom:12px}
-.hero p{font-size:20px;margin-bottom:20px}
+
+.hero h1{
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  font-size:20px;
+  margin-bottom:20px;
+}
+
 .hero button{
- background:#ff9900;
- border:0;
- padding:12px 25px;
- border-radius:4px;
- font-weight:bold;
- cursor:pointer;
+  background:#ff9900;
+  border:0;
+  padding:12px 25px;
+  border-radius:4px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
+
 .container{
- max-width:1450px;
- margin:auto;
- padding:15px;
+  max-width:1450px;
+  margin:auto;
+  padding:15px;
 }
+
 .section{
- background:white;
- padding:18px;
- margin-bottom:18px;
- border-radius:5px;
+  background:white;
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:5px;
 }
+
 .section-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
 }
-.section-title h2{font-size:22px}
 
-/* CATEGORY */
+.section-title h2{
+  font-size:22px;
+}
+
+/* ================= CATEGORY ================= */
+
 .categories{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:15px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
 }
+
 .category{
- padding:12px;
- border:1px solid #ddd;
- cursor:pointer;
+  padding:12px;
+  border:1px solid #ddd;
+  cursor:pointer;
+  transition:.2s;
 }
+
+.category:hover{
+  box-shadow:0 3px 12px #bbb;
+  transform:translateY(-2px);
+}
+
 .category img{
- width:100%;
- height:190px;
- object-fit:cover;
+  width:100%;
+  height:190px;
+  object-fit:cover;
 }
-.category h3{margin-top:10px}
 
-/* PRODUCTS */
+.category h3{
+  margin-top:10px;
+}
+
+/* ================= PRODUCTS ================= */
+
 .products{
- display:grid;
- grid-template-columns:repeat(5,1fr);
- gap:15px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
 }
+
 .product{
- border:1px solid #ddd;
- padding:12px;
- background:white;
- position:relative;
- transition:.2s;
+  border:1px solid #ddd;
+  padding:12px;
+  background:white;
+  position:relative;
+  transition:.2s;
 }
+
 .product:hover{
- box-shadow:0 3px 12px #bbb;
- transform:translateY(-2px);
+  box-shadow:0 3px 12px #bbb;
+  transform:translateY(-2px);
 }
+
 .product img{
- width:100%;
- height:190px;
- object-fit:contain;
+  width:100%;
+  height:190px;
+  object-fit:contain;
 }
+
 .heart{
- position:absolute;
- right:10px;
- top:8px;
- font-size:24px;
- cursor:pointer;
+  position:absolute;
+  right:10px;
+  top:8px;
+  font-size:24px;
+  cursor:pointer;
+  z-index:2;
 }
+
 .product h3{
- font-size:15px;
- height:38px;
- overflow:hidden;
- margin:8px 0;
+  font-size:15px;
+  height:40px;
+  overflow:hidden;
+  margin:8px 0;
 }
-.rating{color:#e47911;font-size:14px}
+
+.rating{
+  color:#e47911;
+  font-size:14px;
+}
+
 .price{
- font-size:20px;
- font-weight:bold;
- margin-top:5px;
+  font-size:20px;
+  font-weight:bold;
+  margin-top:5px;
 }
+
 .old{
- color:#777;
- text-decoration:line-through;
- font-size:13px;
+  color:#777;
+  text-decoration:line-through;
+  font-size:13px;
 }
+
 .discount{
- color:#b12704;
- font-size:13px;
- margin:4px 0 10px;
+  color:#b12704;
+  font-size:13px;
+  margin:4px 0 10px;
 }
+
 .buy{
- display:block;
- text-align:center;
- background:#ff9900;
- color:#111;
- text-decoration:none;
- padding:10px;
- border-radius:4px;
- font-weight:bold;
- cursor:pointer;
+  width:100%;
+  display:block;
+  text-align:center;
+  background:#ff9900;
+  color:#111;
+  border:0;
+  padding:10px;
+  border-radius:4px;
+  font-weight:bold;
+  cursor:pointer;
 }
-.buy:hover{background:#ffb347}
 
-/* CART */
+.buy:hover{
+  background:#ffb347;
+}
+
+.cartBtn{
+  margin-top:7px;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+  font-size:18px;
+}
+
+.error{
+  text-align:center;
+  padding:30px;
+  color:#b12704;
+}
+
+/* ================= CART ================= */
+
 .cart-panel{
- display:none;
- position:fixed;
- right:0;
- top:0;
- width:350px;
- height:100%;
- background:white;
- z-index:200;
- box-shadow:-3px 0 10px #777;
- padding:20px;
- overflow:auto;
+  display:none;
+
+  position:fixed;
+
+  right:0;
+  top:0;
+
+  width:380px;
+  height:100%;
+
+  background:white;
+
+  z-index:2000;
+
+  box-shadow:-3px 0 10px #777;
+
+  padding:20px;
+
+  overflow:auto;
 }
-.cart-panel h2{margin-bottom:20px}
+
+.cart-panel h2{
+  margin-bottom:20px;
+}
+
 .close{
- float:right;
- cursor:pointer;
- font-size:25px;
+  float:right;
+  cursor:pointer;
+  font-size:25px;
 }
+
 .cart-item{
- border-bottom:1px solid #ddd;
- padding:12px 0;
+  border-bottom:1px solid #ddd;
+  padding:12px 0;
+  min-height:85px;
 }
+
+.cart-item img{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  float:left;
+  margin-right:10px;
+}
+
+.cart-item button{
+  margin-top:5px;
+  padding:5px 10px;
+  cursor:pointer;
+}
+
 .cart-total{
- margin-top:20px;
- font-size:20px;
- font-weight:bold;
+  clear:both;
+  margin-top:20px;
+  font-size:20px;
+  font-weight:bold;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
+
 .back{
- background:#37475a;
- color:white;
- text-align:center;
- padding:15px;
- cursor:pointer;
-}
-footer{
- background:#232f3e;
- color:white;
- padding:40px 8%;
-}
-.footer-grid{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:30px;
-}
-footer h3{margin-bottom:12px}
-footer p{
- color:#ddd;
- margin:8px 0;
- font-size:14px;
-}
-.copy{
- border-top:1px solid #555;
- margin-top:25px;
- padding-top:20px;
- text-align:center;
+  background:#37475a;
+  color:white;
+  text-align:center;
+  padding:15px;
+  cursor:pointer;
 }
 
-/* MOBILE */
-@media(max-width:900px){
- .top{flex-wrap:wrap}
- .account{display:none}
- .search{
-  flex-basis:100%;
-  order:2;
- }
- .categories{
-  grid-template-columns:1fr 1fr;
- }
- .products{
-  grid-template-columns:repeat(3,1fr);
- }
+footer{
+  background:#232f3e;
+  color:white;
+  padding:40px 8%;
 }
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:30px;
+}
+
+footer h3{
+  margin-bottom:12px;
+}
+
+footer p{
+  color:#ddd;
+  margin:8px 0;
+  font-size:14px;
+}
+
+.copy{
+  border-top:1px solid #555;
+  margin-top:25px;
+  padding-top:20px;
+  text-align:center;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .top{
+    flex-wrap:wrap;
+  }
+
+  .account{
+    display:none;
+  }
+
+  .search{
+    flex-basis:100%;
+    order:2;
+  }
+
+  .categories{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
 @media(max-width:600px){
- .logo{font-size:20px}
- .hero{height:250px;padding:40px 20px}
- .hero h1{font-size:28px}
- .hero p{font-size:16px}
- .products{
-  grid-template-columns:1fr 1fr;
- }
- .product img{height:145px}
- .product h3{font-size:13px}
- .cart-panel{width:100%}
- .footer-grid{
-  grid-template-columns:1fr 1fr;
- }
+
+  .logo{
+    font-size:20px;
+  }
+
+  .hero{
+    height:250px;
+    padding:40px 20px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .products{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .product img{
+    height:145px;
+  }
+
+  .product h3{
+    font-size:13px;
+  }
+
+  .cart-panel{
+    width:100%;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
 
 <div class="top">
 
-<div class="logo">Shivam Deals</div>
+<div class="logo">
+Shivam Deals
+</div>
 
 <div class="search">
-<select id="categorySelect">
+
+<select id="categorySelect"
+onchange="selectCategory()">
+
 <option value="all">All</option>
 <option value="mobile">Mobiles</option>
 <option value="electronics">Electronics</option>
 <option value="fashion">Fashion</option>
 <option value="home">Home</option>
+
 </select>
 
-<input id="searchBox"
-placeholder="Search products">
+<input
+id="searchBox"
+placeholder="Search products"
+onkeyup="searchProducts()">
 
-<button onclick="searchProducts()">🔍</button>
+<button onclick="searchProducts()">
+🔍
+</button>
+
 </div>
 
 <div class="account">
+
 Hello, Shivam
-<b>Account & Orders</b>
+
+<b>
+Account & Orders
+</b>
+
 </div>
 
-<div class="cart" onclick="openCart()">
+<div class="cart"
+onclick="openCart()">
+
 🛒 <span id="cartCount">0</span>
+
 </div>
 
 </div>
+
 
 <div class="menu">
-<span onclick="showAll()">☰ All</span>
-<span onclick="filterCategory('mobile')">Mobiles</span>
-<span onclick="filterCategory('electronics')">Electronics</span>
-<span onclick="filterCategory('fashion')">Fashion</span>
-<span onclick="filterCategory('home')">Home</span>
-<span onclick="showDeals()">🔥 Today's Deals</span>
+
+<span onclick="showAll()">
+☰ All
+</span>
+
+<span onclick="filterCategory('mobile')">
+Mobiles
+</span>
+
+<span onclick="filterCategory('electronics')">
+Electronics
+</span>
+
+<span onclick="filterCategory('fashion')">
+Fashion
+</span>
+
+<span onclick="filterCategory('home')">
+Home
+</span>
+
+<span onclick="showDeals()">
+🔥 Today's Deals
+</span>
+
 </div>
 
 </header>
 
 
+<!-- ================= HERO ================= -->
+
 <section class="hero">
 
-<h1>Welcome to Shivam Deals</h1>
+<h1>
+Welcome to Shivam Deals
+</h1>
 
-<p>Best Deals • Smart Shopping • Great Offers</p>
+<p>
+Best Deals • Smart Shopping • Great Offers
+</p>
 
-<button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+<button onclick="
+document.getElementById('products')
+.scrollIntoView({behavior:'smooth'})
+">
 Shop Now
 </button>
 
 </section>
 
 
+<!-- ================= MAIN ================= -->
+
 <div class="container">
+
+
+<!-- CATEGORY -->
 
 <section class="section">
 
 <div class="section-title">
-<h2>Shop by Category</h2>
+
+<h2>
+Shop by Category
+</h2>
+
 </div>
+
 
 <div class="categories">
 
-<div class="category" onclick="filterCategory('mobile')">
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80">
-<h3>📱 Mobiles</h3>
+
+<div class="category"
+onclick="filterCategory('mobile')">
+
+<img src=
+"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80">
+
+<h3>
+📱 Mobiles
+</h3>
+
 </div>
 
-<div class="category" onclick="filterCategory('electronics')">
-<img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80">
-<h3>💻 Electronics</h3>
+
+<div class="category"
+onclick="filterCategory('electronics')">
+
+<img src=
+"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80">
+
+<h3>
+💻 Electronics
+</h3>
+
 </div>
 
-<div class="category" onclick="filterCategory('fashion')">
-<img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80">
-<h3>👕 Fashion</h3>
+
+<div class="category"
+onclick="filterCategory('fashion')">
+
+<img src=
+"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=600&q=80">
+
+<h3>
+👕 Fashion
+</h3>
+
 </div>
 
-<div class="category" onclick="filterCategory('home')">
-<img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80">
-<h3>🏠 Home</h3>
+
+<div class="category"
+onclick="filterCategory('home')">
+
+<img src=
+"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80">
+
+<h3>
+🏠 Home
+</h3>
+
 </div>
+
 
 </div>
 
 </section>
 
 
-<section class="section" id="products">
+<!-- PRODUCTS -->
+
+<section
+class="section"
+id="products">
 
 <div class="section-title">
-<h2 id="productTitle">Today's Best Deals</h2>
-<span id="resultCount"></span>
+
+<h2 id="productTitle">
+Today's Best Deals
+</h2>
+
+<span id="resultCount">
+</span>
+
 </div>
 
-<div class="products" id="productList"></div>
+
+<div
+class="products"
+id="productList">
+
+<div class="loading">
+Supabase से products load हो रहे हैं...
+</div>
+
+</div>
 
 </section>
 
 </div>
 
 
-<div class="back" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<!-- BACK TO TOP -->
+
+<div
+class="back"
+onclick="
+window.scrollTo({
+top:0,
+behavior:'smooth'
+})
+">
+
 Back to top
+
 </div>
 
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
 <div class="footer-grid">
 
 <div>
-<h3>Shivam Deals</h3>
-<p>About Us</p>
-<p>Contact Us</p>
+
+<h3>
+Shivam Deals
+</h3>
+
+<p>
+About Us
+</p>
+
+<p>
+Contact Us
+</p>
+
 </div>
+
 
 <div>
-<h3>Shop</h3>
-<p>Mobiles</p>
-<p>Electronics</p>
-<p>Fashion</p>
+
+<h3>
+Shop
+</h3>
+
+<p>
+Mobiles
+</p>
+
+<p>
+Electronics
+</p>
+
+<p>
+Fashion
+</p>
+
+<p>
+Home
+</p>
+
 </div>
+
 
 <div>
-<h3>Information</h3>
-<p>Privacy Policy</p>
-<p>Terms & Conditions</p>
+
+<h3>
+Information
+</h3>
+
+<p>
+Privacy Policy
+</p>
+
+<p>
+Terms & Conditions
+</p>
+
 </div>
+
 
 <div>
-<h3>Help</h3>
-<p>Customer Support</p>
-<p>Returns</p>
+
+<h3>
+Help
+</h3>
+
+<p>
+Customer Support
+</p>
+
+<p>
+Returns
+</p>
+
 </div>
 
 </div>
+
 
 <div class="copy">
+
 © 2026 Shivam Deals
+
 </div>
 
 </footer>
 
 
-<!-- CART PANEL -->
+<!-- ================= CART ================= -->
 
-<div class="cart-panel" id="cartPanel">
+<div
+class="cart-panel"
+id="cartPanel">
 
-<span class="close" onclick="closeCart()">×</span>
+<span
+class="close"
+onclick="closeCart()">
 
-<h2>🛒 Your Cart</h2>
+×
+
+</span>
+
+
+<h2>
+🛒 Your Cart
+</h2>
+
 
 <div id="cartItems">
+
 Cart खाली है।
+
 </div>
+
 
 <div class="cart-total">
-Total: ₹<span id="cartTotal">0</span>
-</div>
+
+Total:
+₹<span id="cartTotal">
+0
+</span>
 
 </div>
 
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
 /*
-====================================
-PRODUCT DATA
-====================================
-
-अभी demo products हैं।
-
-Amazon पर अपने affiliate links लगाने के लिए
-नीचे amazonLink बदलें।
-
-बाद में इसी जगह Amazon Creators API
-से products load किए जा सकते हैं।
+================================================
+SUPABASE CONNECTION
+================================================
 */
 
-const products = [
+const SUPABASE_URL =
+"https://obiandncoeypauzfnkhy.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_kzlO87cZ_-t8wdP2gRYHHA_FXoW1zRF";
+
+
+const db =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/*
+================================================
+DATA
+================================================
+*/
 
 let products = [];
 
-const supabaseUrl = 'https://obiandncoeypauz1.supabase.co';
-const supabaseKey = 'यहाँ_अपनी_Publishable_Key_पेस्ट_करो';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-async function loadProductsFromSupabase() {
-  const { data, error } = await supabase
-    .from('products')
-    .select('*');
-
-  if (error) {
-    console.error('Error:', error);
-    return;
-  }
-
-  products = data.map(item => ({
-    id: item.id,
-    name: item.name,
-    price: item.price,
-    image: item.image,
-    amazonLink: item.affiliate_link || '#',
-    category: 'all',
-    rating: '★★★★☆',
-    discount: '',
-    old: ''
-  }));
-
-  if (typeof showProducts === 'function') {
-    showProducts();
-  }
-}
-
-loadProductsFromSupabase();
-
-
-];
-
-
-let currentProducts = [...products];
+let currentProducts = [];
 
 let cart = [];
 
+let wishlist = [];
 
-/* DISPLAY PRODUCTS */
+
+/*
+================================================
+LOAD PRODUCTS FROM SUPABASE
+================================================
+*/
+
+async function loadProducts(){
+
+  const box =
+  document.getElementById(
+    "productList"
+  );
+
+
+  box.innerHTML =
+  `
+  <div class="loading">
+  Products loading...
+  </div>
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+  .from("products")
+  .select("*")
+  .order(
+    "id",
+    {
+      ascending:false
+    }
+  );
+
+
+  if(error){
+
+    console.error(
+      "SUPABASE ERROR:",
+      error
+    );
+
+
+    box.innerHTML =
+    `
+    <div class="error">
+
+    ❌ Products load नहीं हुए।
+
+    <br><br>
+
+    Supabase की
+    products table,
+    RLS policy और
+    column names check करें।
+
+    </div>
+    `;
+
+    return;
+  }
+
+
+  console.log(
+    "SUPABASE PRODUCTS:",
+    data
+  );
+
+
+  products =
+  (data || []).map(
+    p => ({
+
+      id:
+      p.id,
+
+      name:
+      p.name ||
+      "Product",
+
+      price:
+      Number(p.price) ||
+      0,
+
+      old:
+      Number(
+        p.old_price
+      ) ||
+      Number(p.price) ||
+      0,
+
+      discount:
+      p.discount ||
+      "",
+
+      rating:
+      p.rating ||
+      "★★★★☆",
+
+      category:
+      String(
+        p.category ||
+        ""
+      ).toLowerCase(),
+
+      image:
+      p.image ||
+      "",
+
+      amazonLink:
+      p.amazon_link ||
+      "#",
+
+      description:
+      p.description ||
+      ""
+
+    })
+  );
+
+
+  currentProducts =
+  [...products];
+
+
+  displayProducts(
+    currentProducts
+  );
+
+}
+
+
+/*
+================================================
+DISPLAY PRODUCTS
+================================================
+*/
 
 function displayProducts(list){
 
- const box=document.getElementById("productList");
-
- box.innerHTML="";
-
- document.getElementById("resultCount").innerText =
- list.length+" products";
-
- if(list.length===0){
-
-  box.innerHTML=
-  "<p>कोई product नहीं मिला।</p>";
-
-  return;
- }
-
- list.forEach(p=>{
-
-  box.innerHTML += `
-
-  <div class="product">
-
-    <div class="heart"
-    onclick="addWishlist(${p.id})">
-    ♡
-    </div>
-
-    <img src="${p.image}" alt="${p.name}">
-
-    <h3>${p.name}</h3>
-
-    <div class="rating">${p.rating}</div>
-
-    <div class="price">
-      ₹${p.price.toLocaleString("en-IN")}
-    </div>
-
-    <div class="old">
-      ₹${p.old.toLocaleString("en-IN")}
-    </div>
-
-    <div class="discount">
-      ${p.discount}
-    </div>
-
-    <button
-    class="buy"
-    onclick="buyAmazon('${p.amazonLink}')">
-    Amazon पर खरीदें
-    </button>
-
-    <br>
-
-    <button
-    class="buy"
-    onclick="addCart(${p.id})">
-    🛒 Cart में डालें
-    </button>
-
-  </div>
-
-  `;
-
- });
-
-}
-
-
-/* AMAZON */
-
-function buyAmazon(link){
-
- if(link.startsWith("YOUR-AMAZON")){
-
-  alert(
-   "इस product में अभी Amazon Affiliate Link नहीं लगाया गया है।"
+  const box =
+  document.getElementById(
+    "productList"
   );
 
-  return;
- }
 
- window.open(link,"_blank");
+  box.innerHTML =
+  "";
+
+
+  document.getElementById(
+    "resultCount"
+  ).innerText =
+  list.length +
+  " products";
+
+
+  if(list.length === 0){
+
+    box.innerHTML =
+    `
+    <p>
+    कोई product नहीं मिला।
+    </p>
+    `;
+
+    return;
+  }
+
+
+  list.forEach(
+    p => {
+
+      const image =
+      p.image ||
+      "https://via.placeholder.com/500";
+
+
+      box.innerHTML +=
+      `
+
+      <div class="product">
+
+        <div
+        class="heart"
+        onclick="addWishlist(${p.id})">
+
+        ${
+          wishlist.includes(p.id)
+          ? "❤️"
+          : "♡"
+        }
+
+        </div>
+
+
+        <img
+        src="${image}"
+        alt="${escapeHTML(p.name)}"
+        loading="lazy">
+
+
+        <h3>
+        ${escapeHTML(p.name)}
+        </h3>
+
+
+        <div class="rating">
+        ${escapeHTML(p.rating)}
+        </div>
+
+
+        <div class="price">
+
+        ₹${p.price.toLocaleString(
+          "en-IN"
+        )}
+
+        </div>
+
+
+        ${
+          p.old > p.price
+
+          ?
+
+          `
+          <div class="old">
+
+          ₹${p.old.toLocaleString(
+            "en-IN"
+          )}
+
+          </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+        ${
+          p.discount
+
+          ?
+
+          `
+          <div class="discount">
+
+          ${escapeHTML(
+            p.discount
+          )}
+
+          </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+        <button
+        class="buy"
+        onclick="buyAmazon(${p.id})">
+
+        Amazon पर खरीदें
+
+        </button>
+
+
+        <button
+        class="buy cartBtn"
+        onclick="addCart(${p.id})">
+
+        🛒 Cart में डालें
+
+        </button>
+
+      </div>
+
+      `;
+
+    }
+  );
 
 }
 
 
-/* SEARCH */
+/*
+================================================
+SECURITY
+================================================
+*/
+
+function escapeHTML(text){
+
+  return String(text)
+
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
+
+}
+
+
+/*
+================================================
+AMAZON BUTTON
+================================================
+*/
+
+function buyAmazon(id){
+
+  const product =
+  products.find(
+    p => p.id === id
+  );
+
+
+  if(!product){
+
+    return;
+  }
+
+
+  if(
+    !product.amazonLink ||
+    product.amazonLink === "#"
+  ){
+
+    alert(
+      "इस product में Amazon Affiliate Link अभी नहीं लगाया गया है।"
+    );
+
+    return;
+  }
+
+
+  window.open(
+    product.amazonLink,
+    "_blank"
+  );
+
+}
+
+
+/*
+================================================
+SEARCH
+================================================
+*/
 
 function searchProducts(){
 
- const text=
- document.getElementById("searchBox")
- .value
- .toLowerCase()
- .trim();
+  const text =
+  document.getElementById(
+    "searchBox"
+  )
+  .value
+  .toLowerCase()
+  .trim();
 
- currentProducts=
- products.filter(p=>
- p.name.toLowerCase().includes(text)
- );
 
- document.getElementById("productTitle").innerText=
- text ? "Search Results" : "Today's Best Deals";
+  const category =
+  document.getElementById(
+    "categorySelect"
+  ).value;
 
- displayProducts(currentProducts);
+
+  currentProducts =
+  products.filter(
+    p => {
+
+      const nameMatch =
+      p.name
+      .toLowerCase()
+      .includes(text);
+
+
+      const categoryMatch =
+      category === "all" ||
+      p.category === category;
+
+
+      return (
+        nameMatch &&
+        categoryMatch
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "productTitle"
+  ).innerText =
+  text
+  ? "Search Results"
+  : "Today's Best Deals";
+
+
+  displayProducts(
+    currentProducts
+  );
 
 }
 
 
-/* CATEGORY */
+/*
+================================================
+CATEGORY SELECT
+================================================
+*/
 
-function filterCategory(category){
+function selectCategory(){
 
- currentProducts=
- products.filter(p=>p.category===category);
+  const category =
+  document.getElementById(
+    "categorySelect"
+  ).value;
 
- document.getElementById("productTitle").innerText=
- category.toUpperCase()+" Deals";
 
- displayProducts(currentProducts);
+  if(
+    category === "all"
+  ){
 
- document.getElementById("products")
- .scrollIntoView({behavior:"smooth"});
+    showAll();
+
+  }else{
+
+    filterCategory(
+      category
+    );
+
+  }
 
 }
 
+
+/*
+================================================
+CATEGORY
+================================================
+*/
+
+function filterCategory(
+  category
+){
+
+  currentProducts =
+  products.filter(
+    p =>
+    p.category ===
+    category
+  );
+
+
+  document.getElementById(
+    "categorySelect"
+  ).value =
+  category;
+
+
+  document.getElementById(
+    "productTitle"
+  ).innerText =
+  category.toUpperCase() +
+  " Deals";
+
+
+  displayProducts(
+    currentProducts
+  );
+
+
+  document.getElementById(
+    "products"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+
+/*
+================================================
+SHOW ALL
+================================================
+*/
 
 function showAll(){
 
- currentProducts=[...products];
+  currentProducts =
+  [...products];
 
- document.getElementById("productTitle").innerText=
- "Today's Best Deals";
 
- displayProducts(currentProducts);
+  document.getElementById(
+    "categorySelect"
+  ).value =
+  "all";
+
+
+  document.getElementById(
+    "productTitle"
+  ).innerText =
+  "Today's Best Deals";
+
+
+  displayProducts(
+    currentProducts
+  );
 
 }
 
+
+/*
+================================================
+TODAY'S DEALS
+================================================
+*/
 
 function showDeals(){
 
- currentProducts=
- products.filter(p=>p.discount);
+  currentProducts =
+  products.filter(
+    p =>
+    p.discount
+  );
 
- document.getElementById("productTitle").innerText=
- "🔥 Today's Deals";
 
- displayProducts(currentProducts);
+  document.getElementById(
+    "productTitle"
+  ).innerText =
+  "🔥 Today's Deals";
 
- document.getElementById("products")
- .scrollIntoView({behavior:"smooth"});
+
+  displayProducts(
+    currentProducts
+  );
+
+
+  document.getElementById(
+    "products"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
 
 }
 
 
-/* CART */
+/*
+================================================
+CART
+================================================
+*/
 
 function addCart(id){
 
- const product=
- products.find(p=>p.id===id);
+  const product =
+  products.find(
+    p => p.id === id
+  );
 
- cart.push(product);
 
- document.getElementById("cartCount")
- .innerText=cart.length;
+  if(!product){
 
- alert(product.name+" cart में डाल दिया गया।");
+    return;
+  }
+
+
+  cart.push(
+    product
+  );
+
+
+  document.getElementById(
+    "cartCount"
+  ).innerText =
+  cart.length;
+
+
+  alert(
+    product.name +
+    " cart में डाल दिया गया।"
+  );
 
 }
 
 
 function openCart(){
 
- const panel=
- document.getElementById("cartPanel");
+  document.getElementById(
+    "cartPanel"
+  ).style.display =
+  "block";
 
- panel.style.display="block";
 
- const box=
- document.getElementById("cartItems");
+  renderCart();
 
- if(cart.length===0){
+}
 
-  box.innerHTML="Cart खाली है।";
 
-  return;
- }
+function renderCart(){
 
- let total=0;
+  const box =
+  document.getElementById(
+    "cartItems"
+  );
 
- box.innerHTML="";
 
- cart.forEach((p,index)=>{
+  if(
+    cart.length === 0
+  ){
 
-  total+=p.price;
+    box.innerHTML =
+    "Cart खाली है।";
 
-  box.innerHTML+=`
 
-   <div class="cart-item">
+    document.getElementById(
+      "cartTotal"
+    ).innerText =
+    "0";
 
-    <b>${p.name}</b>
 
-    <p>₹${p.price.toLocaleString("en-IN")}</p>
+    return;
+  }
 
-    <button
-    onclick="removeCart(${index})">
-    Remove
-    </button>
 
-   </div>
+  let total = 0;
 
-  `;
 
- });
+  box.innerHTML =
+  "";
 
- document.getElementById("cartTotal")
- .innerText=total.toLocaleString("en-IN");
+
+  cart.forEach(
+    (p,index) => {
+
+      total +=
+      p.price;
+
+
+      box.innerHTML +=
+      `
+
+      <div class="cart-item">
+
+        <img
+        src="${p.image}">
+
+        <b>
+        ${escapeHTML(
+          p.name
+        )}
+        </b>
+
+        <p>
+        ₹${p.price.toLocaleString(
+          "en-IN"
+        )}
+        </p>
+
+        <button
+        onclick="removeCart(${index})">
+
+        Remove
+
+        </button>
+
+        <div
+        style="clear:both">
+        </div>
+
+      </div>
+
+      `;
+
+    }
+  );
+
+
+  document.getElementById(
+    "cartTotal"
+  ).innerText =
+  total.toLocaleString(
+    "en-IN"
+  );
 
 }
 
 
 function removeCart(index){
 
- cart.splice(index,1);
+  cart.splice(
+    index,
+    1
+  );
 
- document.getElementById("cartCount")
- .innerText=cart.length;
 
- openCart();
+  document.getElementById(
+    "cartCount"
+  ).innerText =
+  cart.length;
+
+
+  renderCart();
 
 }
 
 
 function closeCart(){
 
- document.getElementById("cartPanel")
- .style.display="none";
+  document.getElementById(
+    "cartPanel"
+  ).style.display =
+  "none";
 
 }
 
 
-/* WISHLIST */
+/*
+================================================
+WISHLIST
+================================================
+*/
 
 function addWishlist(id){
 
- alert("❤️ Product wishlist में जोड़ दिया गया।");
+  if(
+    wishlist.includes(id)
+  ){
+
+    wishlist =
+    wishlist.filter(
+      x =>
+      x !== id
+    );
+
+  }else{
+
+    wishlist.push(
+      id
+    );
+
+  }
+
+
+  displayProducts(
+    currentProducts
+  );
 
 }
 
 
-/* START */
+/*
+================================================
+START
+================================================
+*/
 
-displayProducts(products);
+loadProducts();
 
 </script>
 
 </body>
-    </html>
-my product 
+ </html>
