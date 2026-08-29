@@ -1,3 +1,153 @@
+import React, { useState } from 'react';
+
+export default function Home() {
+  const [products, setProducts] = useState({
+    mobiles: [],
+    electronics: [],
+    fashion: [],
+    home: []
+  });
+
+  const PASSWORD = "Shivam-96084";
+
+  // Add Product Function with Password Prompt
+  const handleAddProduct = () => {
+    const pwd = prompt("Enter Admin Password to Add Product 🔐:");
+    if (pwd === PASSWORD) {
+      const category = prompt("Enter Category (mobiles, electronics, fashion, home):").toLowerCase();
+      if (!['mobiles', 'electronics', 'fashion', 'home'].includes(category)) {
+        alert("❌ Invalid Category! Choose from: mobiles, electronics, fashion, home");
+        return;
+      }
+
+      const name = prompt("Enter Product Name:");
+      const image = prompt("Enter Image URL:");
+      const link = prompt("Enter Amazon Link:");
+
+      if (!name || !link) {
+        alert("Product Name and Link are required!");
+        return;
+      }
+
+      setProducts(prev => ({
+        ...prev,
+        [category]: [...prev[category], { id: Date.now(), name, image, link }]
+      }));
+      alert("✅ Product Added Successfully!");
+    } else if (pwd !== null) {
+      alert("❌ Incorrect Password!");
+    }
+  };
+
+  // Delete Product Function with Password Prompt
+  const handleDelete = (category, id) => {
+    const pwd = prompt("Enter Admin Password to Delete 🔐:");
+    if (pwd === PASSWORD) {
+      setProducts(prev => ({
+        ...prev,
+        [category]: prev[category].filter(p => p.id !== id)
+      }));
+      alert("✅ Product Removed!");
+    } else if (pwd !== null) {
+      alert("❌ Incorrect Password!");
+    }
+  };
+
+  return (
+    <div style={{ backgroundColor: '#eaeded', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
+      
+      {/* Header */}
+      <div style={{ backgroundColor: '#131921', color: 'white', display: 'flex', alignItems: 'center', padding: '10px 20px', gap: '20px', flexWrap: 'wrap' }}>
+        <div style={{ color: '#f0a500', fontSize: '24px', fontWeight: 'bold' }}>Shivam Deals</div>
+        <div style={{ display: 'flex', flex: 1, borderRadius: '4px', overflow: 'hidden', minWidth: '200px' }}>
+          <select style={{ padding: '10px', background: '#f3f3f3', border: 'none' }}><option>All</option></select>
+          <input type="text" placeholder="Search products" style={{ flex: 1, padding: '10px', border: 'none', outline: 'none' }} />
+          <button style={{ padding: '10px 20px', background: '#febd69', border: 'none', cursor: 'pointer' }}>🔍</button>
+        </div>
+        <div style={{ fontSize: '14px' }}>Hello, Shivam<br /><b>Account & Orders</b></div>
+        <div style={{ fontWeight: 'bold', fontSize: '14px' }}>🛒 0</div>
+      </div>
+
+      {/* Sub Header */}
+      <div style={{ backgroundColor: '#232f3e', color: 'white', padding: '10px 20px', display: 'flex', gap: '15px', fontSize: '14px', overflowX: 'auto' }}>
+        <span>☰ All</span><span>Mobiles</span><span>Electronics</span><span>Fashion</span><span>Home</span><span>🔥 Today's Deals</span>
+      </div>
+
+      {/* Hero Banner */}
+      <div style={{ 
+        background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1200") center/cover', 
+        color: 'white', padding: '50px 20px' 
+      }}>
+        <h1 style={{ fontSize: '32px', marginBottom: '10px' }}>Welcome to Shivam Deals</h1>
+        <p style={{ fontSize: '16px', marginBottom: '15px' }}>Best Deals • Smart Shopping • Great Offers</p>
+        <button style={{ backgroundColor: '#f0a500', color: 'black', padding: '10px 20px', border: 'none', fontWeight: 'bold', borderRadius: '4px', cursor: 'pointer' }}>Shop Now</button>
+      </div>
+
+      {/* Shop by Category Section */}
+      <div style={{ maxWidth: '1200px', margin: '20px auto', padding: '0 20px' }}>
+        <div style={{ background: 'white', padding: '20px', borderRadius: '4px', marginBottom: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <h2 style={{ fontSize: '20px', marginBottom: '15px' }}>Shop by Category</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+            <div style={{ textAlign: 'center', background: '#fbfbfb', border: '1px solid #eee', padding: '10px', borderRadius: '4px' }}>
+              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300" alt="Mobile" style={{ width: '100%', height: '130px', objectFit: 'cover', borderRadius: '4px' }} />
+              <p style={{ fontWeight: 'bold', marginTop: '8px' }}>📱 Mobiles</p>
+            </div>
+            <div style={{ textAlign: 'center', background: '#fbfbfb', border: '1px solid #eee', padding: '10px', borderRadius: '4px' }}>
+              <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300" alt="Electronics" style={{ width: '100%', height: '130px', objectFit: 'cover', borderRadius: '4px' }} />
+              <p style={{ fontWeight: 'bold', marginTop: '8px' }}>💻 Electronics</p>
+            </div>
+            <div style={{ textAlign: 'center', background: '#fbfbfb', border: '1px solid #eee', padding: '10px', borderRadius: '4px' }}>
+              <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=300" alt="Fashion" style={{ width: '100%', height: '130px', objectFit: 'cover', borderRadius: '4px' }} />
+              <p style={{ fontWeight: 'bold', marginTop: '8px' }}>👕 Fashion</p>
+            </div>
+            <div style={{ textAlign: 'center', background: '#fbfbfb', border: '1px solid #eee', padding: '10px', borderRadius: '4px' }}>
+              <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=300" alt="Home" style={{ width: '100%', height: '130px', objectFit: 'cover', borderRadius: '4px' }} />
+              <p style={{ fontWeight: 'bold', marginTop: '8px' }}>🏠 Home</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Dynamic Display of Added Products */}
+        {Object.entries(products).map(([catKey, items]) => items.length > 0 && (
+          <div key={catKey} style={{ background: 'white', padding: '20px', borderRadius: '4px', marginBottom: '20px' }}>
+            <h2 style={{ fontSize: '20px', marginBottom: '15px', textTransform: 'capitalize' }}>{catKey} Deals</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
+              {items.map(prod => (
+                <div key={prod.id} style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '4px', textAlign: 'center', position: 'relative', background: 'white' }}>
+                  <a href={prod.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'black', display: 'block' }}>
+                    <img src={prod.image || 'https://via.placeholder.com/150'} alt={prod.name} style={{ width: '100%', height: '140px', objectFit: 'contain', marginBottom: '10px' }} />
+                    <h3 style={{ fontSize: '15px', marginBottom: '8px' }}>{prod.name}</h3>
+                    <span style={{ background: '#fcd200', padding: '6px 12px', fontSize: '13px', fontWeight: 'bold', borderRadius: '4px', display: 'inline-block' }}>Buy on Amazon 🛒</span>
+                  </a>
+                  <button 
+                    onClick={() => handleDelete(catKey, prod.id)}
+                    style={{ position: 'absolute', top: '8px', right: '8px', background: '#dc3545', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '3px', cursor: 'pointer', fontSize: '11px', fontWeight: 'bold' }}>
+                    🗑️ Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Floating Add Product Button */}
+      <button 
+        onClick={handleAddProduct}
+        style={{ position: 'fixed', bottom: '25px', right: '25px', backgroundColor: '#ff9900', color: 'white', border: 'none', padding: '14px 24px', borderRadius: '30px', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', zIndex: 1000 }}>
+        + Add Product
+      </button>
+
+      {/* Footer */}
+      <div style={{ backgroundColor: '#37475a', color: 'white', textAlign: 'center', padding: '15px', cursor: 'pointer' }} onClick={() => window.scrollTo(0, 0)}>Back to top</div>
+      <div style={{ backgroundColor: '#232f3e', color: 'white', padding: '30px 20px', textAlign: 'center', fontSize: '14px' }}>
+        <p>© 2026 Shivam Deals</p>
+      </div>
+
+    </div>
+  );
+}
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
