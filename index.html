@@ -2,122 +2,65 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Shivam Deals</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: #f5f5f5; }
-    
-    /* Header */
     .header { background: #232f3e; color: white; padding: 10px 16px; }
     .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .logo { font-size: 22px; font-weight: bold; color: #febd69; }
-    .search-box { flex: 1; display: flex; min-width: 200px; }
+    .search-box { flex: 1; display: flex; min-width: 180px; }
     .search-box select { padding: 8px; border-radius: 4px 0 0 4px; border: none; background: #f3f3f3; }
     .search-box input { flex: 1; padding: 8px 12px; border: none; outline: none; }
     .search-box button { background: #febd69; border: none; padding: 0 14px; border-radius: 0 4px 4px 0; cursor: pointer; }
     .account { font-size: 13px; }
     .cart { font-size: 14px; font-weight: bold; }
-
-    /* Nav */
     .nav { background: #131921; color: white; padding: 8px 16px; font-size: 14px; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 18px; flex-wrap: wrap; }
-    .nav span { cursor: pointer; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 16px; flex-wrap: wrap; }
     .nav .deals { color: #febd69; }
-
-    /* Hero */
     .hero {
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                   url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400') center/cover;
-      color: white; padding: 70px 20px; text-align: center;
+      color: white; padding: 60px 20px; text-align: center;
     }
-    .hero h1 { font-size: 34px; margin-bottom: 10px; }
-    .hero p { font-size: 16px; margin-bottom: 20px; opacity: 0.95; }
-    .hero button {
-      background: #febd69; color: #111; border: none; padding: 12px 30px;
-      border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer;
-    }
-
-    /* Category */
-    .section { max-width: 1100px; margin: 40px auto; padding: 0 16px; }
-    .section h2 { font-size: 22px; margin-bottom: 18px; font-weight: 600; }
-    .categories {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px;
-    }
-    .cat-card {
-      background: white; border-radius: 10px; overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08); cursor: pointer; text-align: center;
-    }
-    .cat-card img { width: 100%; height: 130px; object-fit: cover; }
-    .cat-card div { padding: 12px; font-weight: 600; }
-
-    /* Products */
-    .products-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px;
-    }
-    .product-card {
-      background: white; border-radius: 10px; overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.09); position: relative;
-    }
-    .product-card img { width: 100%; height: 180px; object-fit: cover; }
+    .hero h1 { font-size: 32px; margin-bottom: 8px; }
+    .hero p { margin-bottom: 18px; opacity: 0.95; }
+    .hero button { background: #febd69; color: #111; border: none; padding: 11px 28px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .section { max-width: 1100px; margin: 35px auto; padding: 0 16px; }
+    .section h2 { font-size: 21px; margin-bottom: 16px; }
+    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+    .cat-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+    .cat-card img { width: 100%; height: 120px; object-fit: cover; }
+    .cat-card div { padding: 11px; font-weight: 600; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+    .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: relative; }
+    .product-card img { width: 100%; height: 170px; object-fit: cover; }
     .product-card .info { padding: 12px; }
-    .product-card h3 { font-size: 14px; margin-bottom: 10px; height: 40px; overflow: hidden; }
-    .buy-btn {
-      background: #ff9900; color: white; text-align: center; padding: 8px;
-      border-radius: 5px; font-weight: 600; font-size: 13px; display: block; text-decoration: none;
-    }
-    .delete-btn {
-      position: absolute; top: 8px; right: 8px; background: #dc2626; color: white;
-      border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;
-    }
-
-    /* Floating Button */
-    .add-btn {
-      position: fixed; bottom: 25px; right: 25px; background: #f59e0b; color: white;
-      border: none; padding: 14px 22px; border-radius: 50px; font-weight: bold;
-      font-size: 16px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.3); z-index: 100;
-    }
-
-    /* Modal */
-    .modal {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65);
-      align-items: center; justify-content: center; z-index: 999; padding: 16px;
-    }
+    .product-card h3 { font-size: 14px; margin-bottom: 6px; height: 38px; overflow: hidden; }
+    .price { color: #b12704; font-weight: bold; font-size: 16px; margin-bottom: 8px; }
+    .buy-btn { background: #ff9900; color: white; text-align: center; padding: 8px; border-radius: 5px; font-weight: 600; font-size: 13px; display: block; text-decoration: none; }
+    .delete-btn { position: absolute; top: 8px; right: 8px; background: #dc2626; color: white; border: none; padding: 4px 7px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .add-btn { position: fixed; bottom: 24px; right: 24px; background: #f59e0b; color: white; border: none; padding: 13px 20px; border-radius: 50px; font-weight: bold; font-size: 15px; cursor: pointer; box-shadow: 0 5px 18px rgba(0,0,0,0.3); z-index: 100; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
     .modal.active { display: flex; }
-    .modal-box {
-      background: white; border-radius: 14px; padding: 24px; width: 100%; max-width: 400px;
-    }
-    .modal-box h2 { text-align: center; margin-bottom: 18px; }
-    .modal-box label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 14px; }
-    .modal-box input, .modal-box select {
-      width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 7px;
-      border: 1px solid #d1d5db; font-size: 15px;
-    }
-    .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
-    .modal-actions button {
-      flex: 1; padding: 11px; border: none; border-radius: 7px; font-weight: bold;
-      cursor: pointer; color: white; font-size: 15px;
-    }
+    .modal-box { background: white; border-radius: 14px; padding: 22px; width: 100%; max-width: 390px; max-height: 90vh; overflow-y: auto; }
+    .modal-box h2 { text-align: center; margin-bottom: 16px; font-size: 20px; }
+    .modal-box label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 13px; }
+    .modal-box input, .modal-box select { width: 100%; padding: 12px; margin-bottom: 14px; border-radius: 8px; border: 1px solid #d1d5db; font-size: 15px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 8px; }
+    .modal-actions button { flex: 1; padding: 13px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 15px; }
     .btn-green { background: #16a34a; }
     .btn-gray { background: #6b7280; }
-
-    /* Footer */
-    .footer { background: #232f3e; color: #ddd; padding: 40px 20px 20px; margin-top: 60px; }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 25px;
-    }
-    .footer h4 { color: white; margin-bottom: 10px; }
-    .footer p { margin: 5px 0; font-size: 14px; cursor: pointer; }
-    .copyright {
-      text-align: center; margin-top: 25px; font-size: 13px;
-      border-top: 1px solid #3a4553; padding-top: 15px;
-    }
+    .footer { background: #232f3e; color: #ddd; padding: 35px 20px 18px; margin-top: 50px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 22px; }
+    .footer h4 { color: white; margin-bottom: 8px; }
+    .footer p { margin: 4px 0; font-size: 13px; }
+    .copyright { text-align: center; margin-top: 22px; font-size: 13px; border-top: 1px solid #3a4553; padding-top: 14px; }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="header">
     <div class="header-inner">
       <div class="logo">Shivam Deals</div>
@@ -131,7 +74,6 @@
     </div>
   </div>
 
-  <!-- Nav -->
   <div class="nav">
     <div class="nav-inner">
       <span>☰ All</span>
@@ -143,14 +85,12 @@
     </div>
   </div>
 
-  <!-- Hero -->
   <div class="hero">
     <h1>Welcome to Shivam Deals</h1>
     <p>Best Deals • Smart Shopping • Great Offers</p>
     <button>Shop Now</button>
   </div>
 
-  <!-- Categories -->
   <div class="section">
     <h2>Shop by Category</h2>
     <div class="categories">
@@ -173,18 +113,19 @@
     </div>
   </div>
 
-  <!-- Products will show here -->
   <div class="section" id="products-area"></div>
 
-  <!-- Add Product Button -->
-  <button class="add-btn" onclick="openAddForm()">+ Add Product</button>
+  <button class="add-btn" id="openBtn">+ Add Product</button>
 
-  <!-- Modal -->
   <div class="modal" id="addModal">
     <div class="modal-box">
       <h2>➕ Add New Product</h2>
+      
       <label>Product Name *</label>
-      <input type="text" id="prodName" placeholder="e.g. iPhone 15">
+      <input type="text" id="prodName" placeholder="e.g. Stylish T-Shirt">
+      
+      <label>Price (₹) *</label>
+      <input type="number" id="prodPrice" placeholder="e.g. 499" min="0">
       
       <label>Image URL</label>
       <input type="text" id="prodImage" placeholder="https://...">
@@ -201,36 +142,18 @@
       </select>
       
       <div class="modal-actions">
-        <button class="btn-green" onclick="addProduct()">Add Product</button>
-        <button class="btn-gray" onclick="closeAddForm()">Cancel</button>
+        <button class="btn-green" id="saveBtn">Add Product</button>
+        <button class="btn-gray" id="cancelBtn">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="footer-inner">
-      <div>
-        <h4>Shivam Deals</h4>
-        <p>About Us</p>
-        <p>Contact Us</p>
-      </div>
-      <div>
-        <h4>Shop</h4>
-        <p>Mobiles</p>
-        <p>Electronics</p>
-        <p>Fashion</p>
-      </div>
-      <div>
-        <h4>Information</h4>
-        <p>Privacy Policy</p>
-        <p>Terms & Conditions</p>
-      </div>
-      <div>
-        <h4>Help</h4>
-        <p>Customer Support</p>
-        <p>Returns</p>
-      </div>
+      <div><h4>Shivam Deals</h4><p>About Us</p><p>Contact Us</p></div>
+      <div><h4>Shop</h4><p>Mobiles</p><p>Electronics</p><p>Fashion</p></div>
+      <div><h4>Information</h4><p>Privacy Policy</p><p>Terms & Conditions</p></div>
+      <div><h4>Help</h4><p>Customer Support</p><p>Returns</p></div>
     </div>
     <div class="copyright">© 2026 Shivam Deals</div>
   </div>
@@ -238,58 +161,71 @@
   <script>
     const PASSWORD = "Shivam-96084";
 
-    // Products load
     let products = JSON.parse(localStorage.getItem("shivamDealsProducts")) || {
-      mobiles: [], electronics: [], fashion: [], home: []
+      mobiles: [],
+      electronics: [],
+      fashion: [],
+      home: []
     };
 
     function saveProducts() {
       localStorage.setItem("shivamDealsProducts", JSON.stringify(products));
     }
 
-    function openAddForm() {
+    document.getElementById("openBtn").addEventListener("click", function() {
       const pwd = prompt("🔐 Admin Password डालो:");
       if (pwd === PASSWORD) {
         document.getElementById("addModal").classList.add("active");
       } else if (pwd !== null) {
         alert("❌ गलत Password!");
       }
-    }
+    });
 
-    function closeAddForm() {
+    document.getElementById("cancelBtn").addEventListener("click", function() {
       document.getElementById("addModal").classList.remove("active");
-    }
+    });
 
-    function addProduct() {
+    document.getElementById("saveBtn").addEventListener("click", function() {
       const name = document.getElementById("prodName").value.trim();
+      const price = document.getElementById("prodPrice").value.trim();
       const image = document.getElementById("prodImage").value.trim();
       const link = document.getElementById("prodLink").value.trim();
       const category = document.getElementById("prodCategory").value;
 
-      if (!name || !link) {
-        alert("Product Name और Amazon Link जरूरी है!");
+      if (!name) {
+        alert("⚠️ Product Name डालो!");
+        return;
+      }
+      if (!price) {
+        alert("⚠️ Price डालो!");
+        return;
+      }
+      if (!link) {
+        alert("⚠️ Amazon Link डालो!");
         return;
       }
 
       products[category].push({
         id: Date.now(),
         name: name,
+        price: price,
         image: image || "https://via.placeholder.com/300x300?text=No+Image",
         link: link
       });
 
       saveProducts();
       renderProducts();
-      closeAddForm();
 
-      // Clear form
+      document.getElementById("addModal").classList.remove("active");
+
       document.getElementById("prodName").value = "";
+      document.getElementById("prodPrice").value = "";
       document.getElementById("prodImage").value = "";
       document.getElementById("prodLink").value = "";
       document.getElementById("prodCategory").value = "mobiles";
 
       alert("✅ Product Successfully Added!");
-    }
+    });
 
     function deleteProduct(category, id) {
       const pwd = prompt("🔐 Delete करने के लिए Password डालो:");
@@ -314,11 +250,14 @@
         { key: "home", name: "🏠 Home" }
       ];
 
+      let hasAny = false;
+
       categories.forEach(cat => {
         const items = products[cat.key];
         if (!items || items.length === 0) return;
 
-        let html = `<h2 style="margin-top:30px; margin-bottom:15px;">${cat.name} Deals</h2>`;
+        hasAny = true;
+        let html = `<h2 style="margin-top:28px; margin-bottom:14px;">${cat.name} Deals</h2>`;
         html += `<div class="products-grid">`;
 
         items.forEach(prod => {
@@ -328,6 +267,7 @@
                 <img src="\( {prod.image}" alt=" \){prod.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
                 <div class="info">
                   <h3>${prod.name}</h3>
+                  <div class="price">₹${prod.price || 'N/A'}</div>
                   <div class="buy-btn">Buy on Amazon 🛒</div>
                 </div>
               </a>
@@ -339,10 +279,13 @@
         html += `</div>`;
         area.innerHTML += html;
       });
+
+      if (!hasAny) {
+        area.innerHTML = `<p style="text-align:center; color:#666; margin-top:30px;">अभी कोई Product नहीं है। + Add Product बटन से जोड़ें।</p>`;
+      }
     }
 
-    // Page load pe products दिखाओ
     renderProducts();
   </script>
 </body>
-        </html>
+  </html>
