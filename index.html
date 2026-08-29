@@ -1,429 +1,348 @@
-"use client";
-import React, { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shivam Deals</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; }
+    
+    /* Header */
+    .header { background: #232f3e; color: white; padding: 10px 16px; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .logo { font-size: 22px; font-weight: bold; color: #febd69; }
+    .search-box { flex: 1; display: flex; min-width: 200px; }
+    .search-box select { padding: 8px; border-radius: 4px 0 0 4px; border: none; background: #f3f3f3; }
+    .search-box input { flex: 1; padding: 8px 12px; border: none; outline: none; }
+    .search-box button { background: #febd69; border: none; padding: 0 14px; border-radius: 0 4px 4px 0; cursor: pointer; }
+    .account { font-size: 13px; }
+    .cart { font-size: 14px; font-weight: bold; }
 
-export default function Home() {
-  const PASSWORD = "Shivam-96084"; // 🔐 Password yahan change kar sakte ho
+    /* Nav */
+    .nav { background: #131921; color: white; padding: 8px 16px; font-size: 14px; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 18px; flex-wrap: wrap; }
+    .nav span { cursor: pointer; }
+    .nav .deals { color: #febd69; }
 
-  const [products, setProducts] = useState({
-    mobiles: [],
-    electronics: [],
-    fashion: [],
-    home: [],
-  });
-
-  const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    image: "",
-    link: "",
-    category: "mobiles",
-  });
-
-  // Products load karo
-  useEffect(() => {
-    const saved = localStorage.getItem("shivamDealsProducts");
-    if (saved) setProducts(JSON.parse(saved));
-  }, []);
-
-  // Products save karo
-  useEffect(() => {
-    localStorage.setItem("shivamDealsProducts", JSON.stringify(products));
-  }, [products]);
-
-  const handleAddClick = () => {
-    const pwd = prompt("🔐 Enter Admin Password:");
-    if (pwd === PASSWORD) {
-      setShowForm(true);
-    } else if (pwd !== null) {
-      alert("❌ Wrong Password!");
+    /* Hero */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                  url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400') center/cover;
+      color: white; padding: 70px 20px; text-align: center;
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!form.name.trim() || !form.link.trim()) {
-      alert("Product Name aur Amazon Link zaroori hai!");
-      return;
+    .hero h1 { font-size: 34px; margin-bottom: 10px; }
+    .hero p { font-size: 16px; margin-bottom: 20px; opacity: 0.95; }
+    .hero button {
+      background: #febd69; color: #111; border: none; padding: 12px 30px;
+      border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer;
     }
 
-    const newProduct = {
-      id: Date.now(),
-      name: form.name.trim(),
-      image: form.image.trim() || "https://via.placeholder.com/300x300?text=No+Image",
-      link: form.link.trim(),
+    /* Category */
+    .section { max-width: 1100px; margin: 40px auto; padding: 0 16px; }
+    .section h2 { font-size: 22px; margin-bottom: 18px; font-weight: 600; }
+    .categories {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px;
+    }
+    .cat-card {
+      background: white; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08); cursor: pointer; text-align: center;
+    }
+    .cat-card img { width: 100%; height: 130px; object-fit: cover; }
+    .cat-card div { padding: 12px; font-weight: 600; }
+
+    /* Products */
+    .products-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px;
+    }
+    .product-card {
+      background: white; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.09); position: relative;
+    }
+    .product-card img { width: 100%; height: 180px; object-fit: cover; }
+    .product-card .info { padding: 12px; }
+    .product-card h3 { font-size: 14px; margin-bottom: 10px; height: 40px; overflow: hidden; }
+    .buy-btn {
+      background: #ff9900; color: white; text-align: center; padding: 8px;
+      border-radius: 5px; font-weight: 600; font-size: 13px; display: block; text-decoration: none;
+    }
+    .delete-btn {
+      position: absolute; top: 8px; right: 8px; background: #dc2626; color: white;
+      border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;
+    }
+
+    /* Floating Button */
+    .add-btn {
+      position: fixed; bottom: 25px; right: 25px; background: #f59e0b; color: white;
+      border: none; padding: 14px 22px; border-radius: 50px; font-weight: bold;
+      font-size: 16px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.3); z-index: 100;
+    }
+
+    /* Modal */
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+      align-items: center; justify-content: center; z-index: 999; padding: 16px;
+    }
+    .modal.active { display: flex; }
+    .modal-box {
+      background: white; border-radius: 14px; padding: 24px; width: 100%; max-width: 400px;
+    }
+    .modal-box h2 { text-align: center; margin-bottom: 18px; }
+    .modal-box label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 14px; }
+    .modal-box input, .modal-box select {
+      width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 7px;
+      border: 1px solid #d1d5db; font-size: 15px;
+    }
+    .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
+    .modal-actions button {
+      flex: 1; padding: 11px; border: none; border-radius: 7px; font-weight: bold;
+      cursor: pointer; color: white; font-size: 15px;
+    }
+    .btn-green { background: #16a34a; }
+    .btn-gray { background: #6b7280; }
+
+    /* Footer */
+    .footer { background: #232f3e; color: #ddd; padding: 40px 20px 20px; margin-top: 60px; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 25px;
+    }
+    .footer h4 { color: white; margin-bottom: 10px; }
+    .footer p { margin: 5px 0; font-size: 14px; cursor: pointer; }
+    .copyright {
+      text-align: center; margin-top: 25px; font-size: 13px;
+      border-top: 1px solid #3a4553; padding-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="logo">Shivam Deals</div>
+      <div class="search-box">
+        <select><option>All</option></select>
+        <input type="text" placeholder="Search products">
+        <button>🔍</button>
+      </div>
+      <div class="account">Hello, Shivam<br><strong>Account & Orders</strong></div>
+      <div class="cart">🛒 0</div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav">
+    <div class="nav-inner">
+      <span>☰ All</span>
+      <span>Mobiles</span>
+      <span>Electronics</span>
+      <span>Fashion</span>
+      <span>Home</span>
+      <span class="deals">🔥 Today's Deals</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Welcome to Shivam Deals</h1>
+    <p>Best Deals • Smart Shopping • Great Offers</p>
+    <button>Shop Now</button>
+  </div>
+
+  <!-- Categories -->
+  <div class="section">
+    <h2>Shop by Category</h2>
+    <div class="categories">
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=200&fit=crop" alt="Mobiles">
+        <div>Mobiles</div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=200&fit=crop" alt="Electronics">
+        <div>Electronics</div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=300&h=200&fit=crop" alt="Fashion">
+        <div>Fashion</div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=200&fit=crop" alt="Home">
+        <div>Home</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products will show here -->
+  <div class="section" id="products-area"></div>
+
+  <!-- Add Product Button -->
+  <button class="add-btn" onclick="openAddForm()">+ Add Product</button>
+
+  <!-- Modal -->
+  <div class="modal" id="addModal">
+    <div class="modal-box">
+      <h2>➕ Add New Product</h2>
+      <label>Product Name *</label>
+      <input type="text" id="prodName" placeholder="e.g. iPhone 15">
+      
+      <label>Image URL</label>
+      <input type="text" id="prodImage" placeholder="https://...">
+      
+      <label>Amazon Link *</label>
+      <input type="text" id="prodLink" placeholder="https://www.amazon.in/...">
+      
+      <label>Category</label>
+      <select id="prodCategory">
+        <option value="mobiles">📱 Mobiles</option>
+        <option value="electronics">💻 Electronics</option>
+        <option value="fashion">👕 Fashion</option>
+        <option value="home">🏠 Home</option>
+      </select>
+      
+      <div class="modal-actions">
+        <button class="btn-green" onclick="addProduct()">Add Product</button>
+        <button class="btn-gray" onclick="closeAddForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div>
+        <h4>Shivam Deals</h4>
+        <p>About Us</p>
+        <p>Contact Us</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <p>Mobiles</p>
+        <p>Electronics</p>
+        <p>Fashion</p>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <p>Privacy Policy</p>
+        <p>Terms & Conditions</p>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <p>Customer Support</p>
+        <p>Returns</p>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Shivam Deals</div>
+  </div>
+
+  <script>
+    const PASSWORD = "Shivam-96084";
+
+    // Products load
+    let products = JSON.parse(localStorage.getItem("shivamDealsProducts")) || {
+      mobiles: [], electronics: [], fashion: [], home: []
     };
 
-    setProducts((prev) => ({
-      ...prev,
-      [form.category]: [...prev[form.category], newProduct],
-    }));
-
-    setForm({ name: "", image: "", link: "", category: "mobiles" });
-    setShowForm(false);
-    alert("✅ Product Successfully Added!");
-  };
-
-  const handleDelete = (category, id) => {
-    const pwd = prompt("🔐 Enter Admin Password to Delete:");
-    if (pwd === PASSWORD) {
-      setProducts((prev) => ({
-        ...prev,
-        [category]: prev[category].filter((p) => p.id !== id),
-      }));
-      alert("✅ Product Deleted!");
-    } else if (pwd !== null) {
-      alert("❌ Wrong Password!");
+    function saveProducts() {
+      localStorage.setItem("shivamDealsProducts", JSON.stringify(products));
     }
-  };
 
-  const categoryData = [
-    {
-      key: "mobiles",
-      name: "Mobiles",
-      img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop",
-    },
-    {
-      key: "electronics",
-      name: "Electronics",
-      img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
-    },
-    {
-      key: "fashion",
-      name: "Fashion",
-      img: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=300&fit=crop",
-    },
-    {
-      key: "home",
-      name: "Home",
-      img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop",
-    },
-  ];
+    function openAddForm() {
+      const pwd = prompt("🔐 Admin Password डालो:");
+      if (pwd === PASSWORD) {
+        document.getElementById("addModal").classList.add("active");
+      } else if (pwd !== null) {
+        alert("❌ गलत Password!");
+      }
+    }
 
-  return (
-    <div style={{ fontFamily: "Arial, sans-serif", background: "#f5f5f5", minHeight: "100vh" }}>
-      
-      {/* ========== HEADER ========== */}
-      <header style={{ background: "#232f3e", color: "white", padding: "10px 16px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-          <div style={{ fontSize: "22px", fontWeight: "bold", color: "#febd69" }}>Shivam Deals</div>
-          
-          <div style={{ flex: 1, display: "flex", minWidth: "200px" }}>
-            <select style={{ padding: "8px", borderRadius: "4px 0 0 4px", border: "none", background: "#f3f3f3" }}>
-              <option>All</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Search products"
-              style={{ flex: 1, padding: "8px 12px", border: "none", outline: "none" }}
-            />
-            <button style={{ background: "#febd69", border: "none", padding: "0 14px", borderRadius: "0 4px 4px 0", cursor: "pointer" }}>
-              🔍
-            </button>
-          </div>
+    function closeAddForm() {
+      document.getElementById("addModal").classList.remove("active");
+    }
 
-          <div style={{ fontSize: "13px" }}>
-            Hello, Shivam<br />
-            <strong>Account & Orders</strong>
-          </div>
-          <div style={{ fontSize: "14px", fontWeight: "bold" }}>🛒 0</div>
-        </div>
-      </header>
+    function addProduct() {
+      const name = document.getElementById("prodName").value.trim();
+      const image = document.getElementById("prodImage").value.trim();
+      const link = document.getElementById("prodLink").value.trim();
+      const category = document.getElementById("prodCategory").value;
 
-      {/* ========== NAV ========== */}
-      <nav style={{ background: "#131921", color: "white", padding: "8px 16px", fontSize: "14px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", gap: "18px", flexWrap: "wrap" }}>
-          <span style={{ cursor: "pointer" }}>☰ All</span>
-          <span style={{ cursor: "pointer" }}>Mobiles</span>
-          <span style={{ cursor: "pointer" }}>Electronics</span>
-          <span style={{ cursor: "pointer" }}>Fashion</span>
-          <span style={{ cursor: "pointer" }}>Home</span>
-          <span style={{ color: "#febd69", cursor: "pointer" }}>🔥 Today's Deals</span>
-        </div>
-      </nav>
+      if (!name || !link) {
+        alert("Product Name और Amazon Link जरूरी है!");
+        return;
+      }
 
-      {/* ========== HERO ========== */}
-      <section
-        style={{
-          background: "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400') center/cover",
-          color: "white",
-          padding: "70px 20px",
-          textAlign: "center",
-        }}
-      >
-        <h1 style={{ fontSize: "36px", margin: "0 0 10px", fontWeight: "700" }}>Welcome to Shivam Deals</h1>
-        <p style={{ fontSize: "17px", marginBottom: "22px", opacity: 0.95 }}>Best Deals • Smart Shopping • Great Offers</p>
-        <button
-          style={{
-            background: "#febd69",
-            color: "#111",
-            border: "none",
-            padding: "12px 32px",
-            borderRadius: "6px",
-            fontWeight: "bold",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          Shop Now
-        </button>
-      </section>
+      products[category].push({
+        id: Date.now(),
+        name: name,
+        image: image || "https://via.placeholder.com/300x300?text=No+Image",
+        link: link
+      });
 
-      {/* ========== SHOP BY CATEGORY ========== */}
-      <section style={{ maxWidth: "1100px", margin: "40px auto", padding: "0 16px" }}>
-        <h2 style={{ fontSize: "24px", marginBottom: "20px", fontWeight: "600" }}>Shop by Category</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "20px" }}>
-          {categoryData.map((cat) => (
-            <div
-              key={cat.key}
-              style={{
-                background: "white",
-                borderRadius: "10px",
-                overflow: "hidden",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-                cursor: "pointer",
-                transition: "transform 0.2s",
-              }}
-            >
-              <img src={cat.img} alt={cat.name} style={{ width: "100%", height: "140px", objectFit: "cover" }} />
-              <div style={{ padding: "14px", textAlign: "center", fontWeight: "600", fontSize: "16px" }}>
-                {cat.name}
-              </div>
+      saveProducts();
+      renderProducts();
+      closeAddForm();
+
+      // Clear form
+      document.getElementById("prodName").value = "";
+      document.getElementById("prodImage").value = "";
+      document.getElementById("prodLink").value = "";
+      document.getElementById("prodCategory").value = "mobiles";
+
+      alert("✅ Product Successfully Added!");
+    }
+
+    function deleteProduct(category, id) {
+      const pwd = prompt("🔐 Delete करने के लिए Password डालो:");
+      if (pwd === PASSWORD) {
+        products[category] = products[category].filter(p => p.id !== id);
+        saveProducts();
+        renderProducts();
+        alert("✅ Product Delete हो गया!");
+      } else if (pwd !== null) {
+        alert("❌ गलत Password!");
+      }
+    }
+
+    function renderProducts() {
+      const area = document.getElementById("products-area");
+      area.innerHTML = "";
+
+      const categories = [
+        { key: "mobiles", name: "📱 Mobiles" },
+        { key: "electronics", name: "💻 Electronics" },
+        { key: "fashion", name: "👕 Fashion" },
+        { key: "home", name: "🏠 Home" }
+      ];
+
+      categories.forEach(cat => {
+        const items = products[cat.key];
+        if (!items || items.length === 0) return;
+
+        let html = `<h2 style="margin-top:30px; margin-bottom:15px;">${cat.name} Deals</h2>`;
+        html += `<div class="products-grid">`;
+
+        items.forEach(prod => {
+          html += `
+            <div class="product-card">
+              <a href="${prod.link}" target="_blank" style="text-decoration:none; color:inherit;">
+                <img src="\( {prod.image}" alt=" \){prod.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+                <div class="info">
+                  <h3>${prod.name}</h3>
+                  <div class="buy-btn">Buy on Amazon 🛒</div>
+                </div>
+              </a>
+              <button class="delete-btn" onclick="deleteProduct('${cat.key}', ${prod.id})">🗑️</button>
             </div>
-          ))}
-        </div>
-      </section>
+          `;
+        });
 
-      {/* ========== PRODUCTS ========== */}
-      <section style={{ maxWidth: "1100px", margin: "50px auto", padding: "0 16px" }}>
-        {categoryData.map((cat) => {
-          const items = products[cat.key];
-          if (!items || items.length === 0) return null;
+        html += `</div>`;
+        area.innerHTML += html;
+      });
+    }
 
-          return (
-            <div key={cat.key} style={{ marginBottom: "50px" }}>
-              <h2 style={{ fontSize: "22px", marginBottom: "18px", fontWeight: "600" }}>
-                {cat.name} Deals
-              </h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "20px" }}>
-                {items.map((prod) => (
-                  <div
-                    key={prod.id}
-                    style={{
-                      background: "white",
-                      borderRadius: "10px",
-                      overflow: "hidden",
-                      boxShadow: "0 2px 12px rgba(0,0,0,0.09)",
-                      position: "relative",
-                    }}
-                  >
-                    <a href={prod.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit" }}>
-                      <img
-                        src={prod.image}
-                        alt={prod.name}
-                        style={{ width: "100%", height: "190px", objectFit: "cover" }}
-                        onError={(e) => (e.target.src = "https://via.placeholder.com/300x300?text=No+Image")}
-                      />
-                      <div style={{ padding: "14px" }}>
-                        <h3 style={{ fontSize: "15px", margin: "0 0 12px", lineHeight: 1.4, height: "42px", overflow: "hidden" }}>
-                          {prod.name}
-                        </h3>
-                        <div
-                          style={{
-                            background: "#ff9900",
-                            color: "white",
-                            textAlign: "center",
-                            padding: "9px",
-                            borderRadius: "5px",
-                            fontWeight: "600",
-                            fontSize: "14px",
-                          }}
-                        >
-                          Buy on Amazon 🛒
-                        </div>
-                      </div>
-                    </a>
-
-                    <button
-                      onClick={() => handleDelete(cat.key, prod.id)}
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        background: "#dc2626",
-                        color: "white",
-                        border: "none",
-                        padding: "5px 9px",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        fontSize: "12px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
-      {/* ========== ADD PRODUCT MODAL ========== */}
-      {showForm && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.65)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 9999,
-            padding: "16px",
-          }}
-        >
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              background: "white",
-              borderRadius: "14px",
-              padding: "28px",
-              width: "100%",
-              maxWidth: "430px",
-              boxShadow: "0 25px 50px rgba(0,0,0,0.25)",
-            }}
-          >
-            <h2 style={{ margin: "0 0 22px", textAlign: "center", fontSize: "22px" }}>➕ Add New Product</h2>
-
-            <label style={{ display: "block", marginBottom: "5px", fontWeight: "600", fontSize: "14px" }}>Product Name *</label>
-            <input
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="e.g. iPhone 15 Pro"
-              required
-              style={inputStyle}
-            />
-
-            <label style={{ display: "block", marginBottom: "5px", fontWeight: "600", fontSize: "14px" }}>Image URL</label>
-            <input
-              value={form.image}
-              onChange={(e) => setForm({ ...form, image: e.target.value })}
-              placeholder="https://..."
-              style={inputStyle}
-            />
-
-            <label style={{ display: "block", marginBottom: "5px", fontWeight: "600", fontSize: "14px" }}>Amazon Link *</label>
-            <input
-              value={form.link}
-              onChange={(e) => setForm({ ...form, link: e.target.value })}
-              placeholder="https://www.amazon.in/..."
-              required
-              style={inputStyle}
-            />
-
-            <label style={{ display: "block", marginBottom: "5px", fontWeight: "600", fontSize: "14px" }}>Category</label>
-            <select
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-              style={{ ...inputStyle, marginBottom: "22px" }}
-            >
-              <option value="mobiles">📱 Mobiles</option>
-              <option value="electronics">💻 Electronics</option>
-              <option value="fashion">👕 Fashion</option>
-              <option value="home">🏠 Home</option>
-            </select>
-
-            <div style={{ display: "flex", gap: "12px" }}>
-              <button type="submit" style={{ ...btnStyle, background: "#16a34a", flex: 1 }}>
-                Add Product
-              </button>
-              <button type="button" onClick={() => setShowForm(false)} style={{ ...btnStyle, background: "#6b7280", flex: 1 }}>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* ========== FLOATING BUTTON ========== */}
-      <button
-        onClick={handleAddClick}
-        style={{
-          position: "fixed",
-          bottom: "28px",
-          right: "28px",
-          background: "#f59e0b",
-          color: "white",
-          border: "none",
-          padding: "15px 24px",
-          borderRadius: "50px",
-          fontWeight: "bold",
-          fontSize: "16px",
-          cursor: "pointer",
-          boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
-          zIndex: 100,
-        }}
-      >
-        + Add Product
-      </button>
-
-      {/* ========== FOOTER ========== */}
-      <footer style={{ background: "#232f3e", color: "#ddd", padding: "40px 20px 20px", marginTop: "60px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "30px" }}>
-          <div>
-            <h4 style={{ color: "white", marginBottom: "12px" }}>Shivam Deals</h4>
-            <p style={footerLink}>About Us</p>
-            <p style={footerLink}>Contact Us</p>
-          </div>
-          <div>
-            <h4 style={{ color: "white", marginBottom: "12px" }}>Shop</h4>
-            <p style={footerLink}>Mobiles</p>
-            <p style={footerLink}>Electronics</p>
-            <p style={footerLink}>Fashion</p>
-          </div>
-          <div>
-            <h4 style={{ color: "white", marginBottom: "12px" }}>Information</h4>
-            <p style={footerLink}>Privacy Policy</p>
-            <p style={footerLink}>Terms & Conditions</p>
-          </div>
-          <div>
-            <h4 style={{ color: "white", marginBottom: "12px" }}>Help</h4>
-            <p style={footerLink}>Customer Support</p>
-            <p style={footerLink}>Returns</p>
-          </div>
-        </div>
-        <div style={{ textAlign: "center", marginTop: "30px", fontSize: "14px", borderTop: "1px solid #3a4553", paddingTop: "18px" }}>
-          © 2026 Shivam Deals
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-// Styles
-const inputStyle = {
-  width: "100%",
-  padding: "11px 12px",
-  marginBottom: "14px",
-  borderRadius: "7px",
-  border: "1px solid #d1d5db",
-  fontSize: "15px",
-  boxSizing: "border-box",
-};
-
-const btnStyle = {
-  border: "none",
-  padding: "12px",
-  borderRadius: "7px",
-  color: "white",
-  fontWeight: "bold",
-  cursor: "pointer",
-  fontSize: "15px",
-};
-
-const footerLink = {
-  margin: "6px 0",
-  fontSize: "14px",
-  cursor: "pointer",
-};
+    // Page load pe products दिखाओ
+    renderProducts();
+  </script>
+</body>
+        </html>
